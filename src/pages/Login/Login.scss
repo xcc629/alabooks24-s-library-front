@@ -1,10 +1,45 @@
+@import "../../styles/variable.scss";
+@mixin ui-size {
+  padding: 15px 10px;
+}
+@mixin font-size($size) {
+  font-size: $size;
+}
+
 .loginMain {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 350px;
+  margin: 100px auto;
+  width: 400px;
   .loginForm {
     display: flex;
     flex-direction: column;
+    margin-bottom: 10px;
+    input {
+      @include ui-size();
+      @include font-size(16px);
+    }
+    .loginOptionBox {
+      @include ui-size();
+      background-color: rgb(212, 247, 225);
+      @include font-size(13px);
+    }
+  }
+  .loginButton {
+    margin-bottom: 10px;
+    border-radius: 5px;
+    @include ui-size();
+    background-color: $theme-color;
+    color: white;
+    @include font-size(17px);
+    font-weight: 700;
+  }
+  .signupButton {
+    @include ui-size();
+    background-color: white;
+    color: rgb(148, 148, 148);
+    font-weight: 700;
+    @include font-size(17px);
   }
 }

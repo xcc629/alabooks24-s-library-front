@@ -1,11 +1,13 @@
+@import "../../styles/variable.scss";
+
 .logobox {
-  background-color: rgb(238, 250, 243);
   .logo {
     display: flex;
     justify-content: center;
-    margin: 10px;
-    color: hsl(166, 41%, 51%);
-    font-size: 18px;
+    border-bottom: 1px solid rgb(153, 187, 167);
+    padding: 10px;
+    color: $theme-color;
+    font-size: 21px;
     font-family: "Sunflower", sans-serif;
   }
 }

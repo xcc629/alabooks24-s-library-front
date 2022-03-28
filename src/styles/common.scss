@@ -1,3 +1,10 @@
+@import "../styles/variable.scss";
+
 * {
   box-sizing: border-box;
+  font-family: "Nanum Gothic", sans-serif;
+}
+
+body {
+  background-color: $background-color;
 }

@@ -3,7 +3,7 @@ import "../SignNav/SignNav.scss";
 function SignNav() {
   return (
     <nav className="logobox">
-      <p className="logo">ARLABOOKS</p>
+      <p className="logo">ALABOOKS</p>
     </nav>
   );
 }
