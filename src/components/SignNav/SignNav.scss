@@ -1,0 +1,11 @@
+.logobox {
+  background-color: rgb(238, 250, 243);
+  .logo {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    color: hsl(166, 41%, 51%);
+    font-size: 18px;
+    font-family: "Sunflower", sans-serif;
+  }
+}

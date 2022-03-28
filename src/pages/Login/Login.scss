@@ -1,0 +1,10 @@
+.loginMain {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 350px;
+  .loginForm {
+    display: flex;
+    flex-direction: column;
+  }
+}
