@@ -1,6 +1,7 @@
-import SignNav from "../../components/SignNav/SignNav";
-import "../Login/Login.scss";
 import { useNavigate } from "react-router-dom";
+import SignNav from "../../components/SignNav/SignNav";
+import GreenButton from "../../components/GreenButton/GreenButton";
+import "../Login/Login.scss";
 
 function Login() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function Login() {
       <SignNav />
       <section className="loginMain">
         <div className="loginForm">
-          <input type="text" placeholder="아이디" />
+          <input type="" placeholder="아이디" />
           <input type="password" placeholder="비밀번호" />
           <div className="loginOptionBox">
             <label>
@@ -27,7 +28,7 @@ function Login() {
             </div>
           </div>
         </div>
-        <button className="loginButton"> 로그인 </button>
+        <GreenButton span={"로그인"} />
         <button className="signupButton" onClick={goToSignup}>
           회원가입
         </button>

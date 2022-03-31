@@ -1,0 +1,23 @@
+.signupWap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 100px auto;
+  width: 400px;
+  * {
+    letter-spacing: -0.04em;
+    cursor: pointer;
+  }
+  .signupIdWap,
+  .signupPasswordsWap,
+  .signupEmail {
+    margin-bottom: 20px;
+  }
+  .signupPasswordsWap {
+    display: flex;
+    flex-direction: column;
+  }
+  .warning {
+    display: none;
+  }
+}

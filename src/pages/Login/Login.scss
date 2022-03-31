@@ -12,6 +12,10 @@
   justify-content: center;
   margin: 100px auto;
   width: 400px;
+  * {
+    letter-spacing: -0.04em;
+    cursor: pointer;
+  }
   .loginForm {
     display: flex;
     flex-direction: column;
@@ -25,10 +29,15 @@
       border-top-right-radius: 4px;
       border-top-left-radius: 4px;
     }
-    input[type="password"] {
-      border-top: none;
-      border-bottom: none;
+    input:hover {
+      border: 1px solid rgba(92, 92, 92, 0.609);
+      box-shadow: inset 0px 0px 5px 1px rgba(202, 202, 202, 0.287);
     }
+    input:focus {
+      outline: none;
+      border: 1px solid rgb(0, 100, 0);
+    }
+
     .loginOptionBox {
       display: flex;
       justify-content: space-between;
@@ -40,6 +49,7 @@
       background-color: rgb(212, 247, 225);
       color: rgb(100, 128, 116);
       @include font-size(12px);
+
       label {
         display: flex;
         align-items: center;
@@ -47,6 +57,9 @@
           margin-right: 5px;
           width: 20px;
           height: 20px;
+        }
+        span:hover {
+          color: $theme-color;
         }
       }
       span {
@@ -56,18 +69,12 @@
         padding-left: 7px;
         border-left: 1px solid rgb(161, 202, 179);
       }
+      span:hover {
+        color: $theme-color;
+      }
     }
   }
-  .loginButton {
-    margin-bottom: 10px;
-    border: 1px solid rgb(161, 202, 179);
-    border-radius: 4px;
-    @include ui-size();
-    background-color: $theme-color;
-    color: white;
-    @include font-size(16px);
-    font-weight: 700;
-  }
+
   .signupButton {
     @include ui-size();
     border: 1px solid $border-color;
