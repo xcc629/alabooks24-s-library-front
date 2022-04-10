@@ -12,8 +12,6 @@ function Signup() {
   const [rePwValue, setRePwValue] = useState("");
   const [email, setEmail] = useState("");
 
-  const button = useRef();
-
   const onClick = () => {
     const users = {
       loginId: idValue,
@@ -32,7 +30,6 @@ function Signup() {
       })
         .then((res) => res.json())
         .then((result) => console.log(result));
-      return;
     }
   };
 
@@ -104,11 +101,7 @@ function Signup() {
           })}
         </div>
         <span className="warning">! 이메일을 입력해주세요.</span>
-        <GreenButton
-          span={"회원 가입 완료"}
-          forwrdedref={button}
-          onClick={onClick}
-        />
+        <GreenButton span={"회원 가입 완료"} onClick={onClick} />
       </section>
     </div>
   );
