@@ -15,6 +15,7 @@
   font-size: 17px;
   font-weight: 200;
   z-index: 3;
+  transition-duration: 0.3s all;
 }
 
 .click {
@@ -25,10 +26,12 @@
   transition-duration: 0.3s all;
 }
 
-.afferClick {
-  padding: 5px 10px 10px 10px;
-  font-size: 12px;
+.afterClick {
+  padding: 10px;
+  color: rgb(138, 151, 148);
+  font-size: 13px;
   z-index: 3;
+  transition-duration: 0.3s all;
 }
 
 .wap input {

@@ -74,6 +74,18 @@
       }
     }
   }
+  .button {
+    margin-bottom: 10px;
+    border: 1px solid rgb(161, 202, 179);
+    border-radius: 4px;
+    padding: 16px 20px;
+    background-color: hsl(166, 41%, 51%);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    cursor: pointer;
+  }
 
   .signupButton {
     @include ui-size();

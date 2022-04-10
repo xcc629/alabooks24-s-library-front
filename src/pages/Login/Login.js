@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import SignNav from "../../components/SignNav/SignNav";
-import GreenButton from "../../components/GreenButton/GreenButton";
 import "../Login/Login.scss";
 
 function Login() {
@@ -14,7 +13,7 @@ function Login() {
   };
 
   const postLoginData = () => {
-    fetch("/members/login", {
+    fetch("/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -54,7 +53,9 @@ function Login() {
             </div>
           </div>
         </div>
-        <GreenButton span={"로그인"} onClick={postLoginData()} />
+        <button className="button" onClick={postLoginData}>
+          로그인
+        </button>
         <button className="signupButton" onClick={goToSignup}>
           회원가입
         </button>

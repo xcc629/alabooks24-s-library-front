@@ -1,7 +1,11 @@
 import style from "./GreenButton.module.css";
 
-function GreenButton({ span }) {
-  return <button className={style.button}>{span}</button>;
+function GreenButton({ span, forwrdedref, onClick }) {
+  return (
+    <button className={style.button} ref={forwrdedref} onClick={onClick}>
+      {span}
+    </button>
+  );
 }
 
 export default GreenButton;
