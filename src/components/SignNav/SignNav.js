@@ -1,9 +1,12 @@
 import "../SignNav/SignNav.scss";
+import { Link } from "react-router-dom";
 
 function SignNav() {
   return (
     <nav className="logobox">
-      <p className="logo">ARLABOOKS</p>
+      <Link to="/" className="logo">
+        ALABOOKS
+      </Link>
     </nav>
   );
 }
