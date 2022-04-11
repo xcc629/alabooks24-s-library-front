@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 import SignNav from "../../components/SignNav/SignNav";
 import "../Login/Login.scss";
 
@@ -13,7 +14,7 @@ function Login() {
   };
 
   const postLoginData = () => {
-    fetch("/login", {
+    fetch("members/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,6 +30,9 @@ function Login() {
 
   return (
     <div>
+      <Helmet>
+        <style>{"body { background-color: rgb(238, 250, 243); }"}</style>
+      </Helmet>
       <SignNav />
       <section className="loginMain">
         <div className="loginForm">

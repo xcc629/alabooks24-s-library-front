@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Helmet } from "react-helmet";
 
 import SignNav from "../../components/SignNav/SignNav";
 import GreenButton from "../../components/GreenButton/GreenButton";
@@ -12,29 +13,40 @@ function Signup() {
   const [rePwValue, setRePwValue] = useState("");
   const [email, setEmail] = useState("");
 
-  const onClick = () => {
-    const users = {
-      loginId: idValue,
-      password: pwValue,
-      passwordConfirm: rePwValue,
-      emailAddress: email,
-    };
+  const users = {
+    loginId: idValue,
+    password: pwValue,
+    passwordConfirm: rePwValue,
+    emailAddress: email,
+  };
 
-    if (pwValue === rePwValue) {
-      fetch("/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(users),
-      })
-        .then((res) => res.json())
-        .then((result) => console.log(result));
+  const onClick = () => {
+    postHandler();
+  };
+
+  const onKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      postHandler();
     }
+  };
+
+  const postHandler = () => {
+    fetch("/members/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(users),
+    })
+      .then((res) => res.json())
+      .then((result) => console.log(result));
   };
 
   return (
     <div>
+      <Helmet>
+        <style>{"body { background-color: rgb(238, 250, 243); }"}</style>
+      </Helmet>
       <SignNav />
       <section className="signupWap">
         <div className="signupIdWap">
@@ -47,12 +59,15 @@ function Signup() {
                   after={data.after}
                   type={data.type}
                   setValue={setIdValue}
+                  onKeyDown={onKeyDown}
                 />
               )
             );
           })}
         </div>
-        <span className="warning">! 아이디를 입력해주세요.</span>
+        <span className={idValue > 4 ? "warningDown" : "warningUp"}>
+          ! 5~10자의 영문 소문자와 숫자로만 입력해주세요.
+        </span>
         <div className="signupPasswordsWap">
           {datas.map((data) => {
             return (
@@ -63,6 +78,7 @@ function Signup() {
                   after={data.after}
                   type={data.type}
                   setValue={setpwValue}
+                  onKeyDown={onKeyDown}
                 />
               )
             );
@@ -78,13 +94,15 @@ function Signup() {
                   after={data.after}
                   type={data.type}
                   setValue={setRePwValue}
+                  onKeyDown={onKeyDown}
                 />
               )
             );
           })}
         </div>
-
-        <span className="warning">! 비밀번호를 입력해주세요.</span>
+        <span className={pwValue === "" ? "warningUp" : "warnginDown"}>
+          ! 비밀번호를 입력해주세요.
+        </span>
         <div className="signupEmail">
           {datas.map((data) => {
             return (
@@ -95,6 +113,7 @@ function Signup() {
                   after={data.after}
                   type={data.type}
                   setValue={setEmail}
+                  onKeyDown={onKeyDown}
                 />
               )
             );

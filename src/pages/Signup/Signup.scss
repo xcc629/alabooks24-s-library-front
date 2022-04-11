@@ -8,16 +8,18 @@
     letter-spacing: -0.04em;
     cursor: pointer;
   }
-  .signupIdWap,
-  .signupPasswordsWap,
-  .signupEmail {
-    margin-bottom: 20px;
-  }
+
   .signupPasswordsWap {
     display: flex;
     flex-direction: column;
   }
-  .warning {
+  .warningDown {
     display: none;
+    margin-bottom: 20px;
+  }
+  .warningUp {
+    padding-left: 10px;
+    margin-bottom: 20px;
+    color: rgba(233, 49, 49, 0.685);
   }
 }
