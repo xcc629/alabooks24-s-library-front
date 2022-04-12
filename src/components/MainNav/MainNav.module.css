@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   margin: auto;
-  padding: 10px 0;
+  padding: 15px 0;
   max-width: 1134px;
 }
 
@@ -14,7 +14,7 @@
 .logo {
   color: hsl(166, 41%, 51%);
   font-weight: bolder;
-  font-size: 30px;
+  font-size: 35px;
   letter-spacing: 0.5;
 }
 
