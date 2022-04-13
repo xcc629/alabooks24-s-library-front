@@ -13,13 +13,11 @@
     display: flex;
     flex-direction: column;
   }
-  .warningDown {
-    display: none;
-    margin-bottom: 20px;
-  }
   .warningUp {
+    align-items: center;
     padding-left: 10px;
     margin-bottom: 20px;
     color: rgba(233, 49, 49, 0.685);
+    font-size: 15px;
   }
 }
