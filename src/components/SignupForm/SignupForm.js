@@ -9,6 +9,7 @@ function SignupForm({
   setValue,
   onKeyDownEnter,
   onValidate,
+  autoComplete,
 }) {
   const [changeStyle, setChangeStyle] = useState(style.beforeClick);
   const [changeStr, setchangeStr] = useState(div);
@@ -38,14 +39,17 @@ function SignupForm({
   return (
     <div className={style.wap}>
       <span className={changeStyle}>{changeStr}</span>
-      <input
-        name={name}
-        type={type}
-        onFocus={clickInput}
-        onBlur={unClickInput}
-        onChange={setValueHandler}
-        onKeyDown={onKeyDownEnter}
-      />
+      <form>
+        <input
+          name={name}
+          type={type}
+          onFocus={clickInput}
+          onBlur={unClickInput}
+          onChange={setValueHandler}
+          onKeyDown={onKeyDownEnter}
+          autoComplete={autoComplete}
+        />
+      </form>
     </div>
   );
 }

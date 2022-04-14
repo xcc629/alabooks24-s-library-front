@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
+import BASE_URL from "../../config";
 import SignNav from "../../components/SignNav/SignNav";
 import "../Login/Login.scss";
 
@@ -14,7 +15,7 @@ function Login() {
   };
 
   const postLoginData = () => {
-    fetch("members/login", {
+    fetch(`${BASE_URL}/members/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -30,9 +31,11 @@ function Login() {
 
   return (
     <div>
-      <Helmet>
-        <style>{"body { background-color: rgb(238, 250, 243); }"}</style>
-      </Helmet>
+      <HelmetProvider>
+        <Helmet>
+          <style>{"body { background-color: rgb(238, 250, 243); }"}</style>
+        </Helmet>
+      </HelmetProvider>
       <SignNav />
       <section className="loginMain">
         <div className="loginForm">
@@ -41,11 +44,14 @@ function Login() {
             placeholder="아이디"
             onKeyUp={(e) => setIdValue(e.target.value)}
           />
-          <input
-            type="password"
-            placeholder="비밀번호"
-            onKeyUp={(e) => setPasswordValue(e.target.value)}
-          />
+          <form>
+            <input
+              type="password"
+              placeholder="비밀번호"
+              onKeyUp={(e) => setPasswordValue(e.target.value)}
+              autoComplete="off"
+            />
+          </form>
           <div className="loginOptionBox">
             <label>
               <input type="checkbox" name="auto_login" value="0" />

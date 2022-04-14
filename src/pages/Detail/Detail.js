@@ -17,12 +17,13 @@ function Detail() {
     publisher: "블레스",
     title: "미끼는 미끼야",
   });
-  // const bookId = 25;
-  // useEffect(() => {
-  //   fetch(`/books/${bookId}`, { method: "GET" })
-  //     .then((res) => res.json())
-  //     .then((result) => setbookInfoObj(result));
-  // }, []);
+
+  const bookId = 20;
+  useEffect(() => {
+    fetch(`/books/${bookId}`, { method: "GET" })
+      .then((res) => res.json())
+      .then((result) => setbookInfoObj(result));
+  }, []);
 
   console.log(bookInfoObj);
   return (

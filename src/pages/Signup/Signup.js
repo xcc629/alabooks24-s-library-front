@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet";
-
+import { Helmet, HelmetProvider } from "react-helmet-async";
+import BASE_URL from "../../config";
 import SignNav from "../../components/SignNav/SignNav";
 import GreenButton from "../../components/GreenButton/GreenButton";
 import SignupForm from "../../components/SignupForm/SignupForm";
@@ -33,6 +33,21 @@ function Signup() {
     passwordValidation();
     passwordConfirmValidation();
     emailAddressValidation();
+
+    const {
+      loginIdErrMessage,
+      passwordErrMessage,
+      passwordConfirmErrMessage,
+      emailAddressErrMessage,
+    } = valueError;
+
+    const validationResult =
+      !loginIdErrMessage.length &&
+      !passwordErrMessage.length &&
+      !passwordConfirmErrMessage.length &&
+      !emailAddressErrMessage.length;
+
+    return validationResult;
   };
 
   const idValidation = () => {
@@ -146,20 +161,7 @@ function Signup() {
   };
 
   const onClick = () => {
-    totalValidation();
-    const {
-      loginIdErrMessage,
-      passwordErrMessage,
-      passwordConfirmErrMessage,
-      emailAddressErrMessage,
-    } = valueError;
-
-    if (
-      !loginIdErrMessage.length &&
-      !passwordErrMessage.length &&
-      !passwordConfirmErrMessage.length &&
-      !emailAddressErrMessage.length
-    ) {
+    if (totalValidation()) {
       postHandler();
       goToLogin();
     }
@@ -187,7 +189,7 @@ function Signup() {
   };
 
   const postHandler = () => {
-    fetch("/members/signup", {
+    fetch(`${BASE_URL}/members/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -200,9 +202,11 @@ function Signup() {
 
   return (
     <div>
-      <Helmet>
-        <style>{"body { background-color: rgb(238, 250, 243); }"}</style>
-      </Helmet>
+      <HelmetProvider>
+        <Helmet>
+          <style>{"body { background-color: rgb(238, 250, 243); }"}</style>
+        </Helmet>
+      </HelmetProvider>
       <SignNav />
       <section className="signupWap">
         <div className="signupIdWap">
@@ -218,6 +222,7 @@ function Signup() {
                   setValue={setsignupValueObj}
                   onKeyDownEnter={onKeyDownEnter}
                   onValidate={idValidation}
+                  autoComplete={data.autoComplete}
                 />
               )
             );
@@ -229,44 +234,46 @@ function Signup() {
             {` ${valueError.loginIdErrMessage}`}
           </span>
         )}
-        <form>
-          <div className="signupPasswordsWap">
-            {datas.map((data) => {
-              return (
-                data.id === 2 && (
-                  <SignupForm
-                    key={data.id}
-                    name={"password"}
-                    div={data.div}
-                    after={data.after}
-                    type={data.type}
-                    setValue={setsignupValueObj}
-                    onKeyDownEnter={onKeyDownEnter}
-                    onValidate={passwordValidation}
-                  />
-                )
-              );
-            })}
-          </div>
-          <div className="signupRePasswordsWap">
-            {datas.map((data) => {
-              return (
-                data.id === 3 && (
-                  <SignupForm
-                    key={data.id}
-                    name={"passwordConfirm"}
-                    div={data.div}
-                    after={data.after}
-                    type={data.type}
-                    setValue={setsignupValueObj}
-                    onKeyDownEnter={onKeyDownEnter}
-                    onValidate={passwordConfirmValidation}
-                  />
-                )
-              );
-            })}
-          </div>
-        </form>
+
+        <div className="signupPasswordsWap">
+          {datas.map((data) => {
+            return (
+              data.id === 2 && (
+                <SignupForm
+                  key={data.id}
+                  name={"password"}
+                  div={data.div}
+                  after={data.after}
+                  type={data.type}
+                  setValue={setsignupValueObj}
+                  onKeyDownEnter={onKeyDownEnter}
+                  onValidate={passwordValidation}
+                  autoComplete={data.autoComplete}
+                />
+              )
+            );
+          })}
+        </div>
+
+        <div className="signupRePasswordsWap">
+          {datas.map((data) => {
+            return (
+              data.id === 3 && (
+                <SignupForm
+                  key={data.id}
+                  name={"passwordConfirm"}
+                  div={data.div}
+                  after={data.after}
+                  type={data.type}
+                  setValue={setsignupValueObj}
+                  onKeyDownEnter={onKeyDownEnter}
+                  onValidate={passwordConfirmValidation}
+                  autoComplete={data.autoComplete}
+                />
+              )
+            );
+          })}
+        </div>
         {(valueError.passwordErrMessage ||
           valueError.passwordConfirmErrMessage) && (
           <span className="warningUp">
@@ -291,6 +298,7 @@ function Signup() {
                   setValue={setsignupValueObj}
                   onKeyDownEnter={onKeyDownEnter}
                   onValidate={emailAddressValidation}
+                  autoComplete={data.autoComplete}
                 />
               )
             );
@@ -316,23 +324,27 @@ const datas = [
     div: "아이디",
     after: "5~20자 영문, 숫자",
     type: "text",
+    autoComplete: "on",
   },
   {
     id: 2,
     div: "비밀번호",
     after: "8자 이상, 영문/숫자/특수문자 포함하여 입력",
     type: "password",
+    autoComplete: "off",
   },
   {
     id: 3,
     div: "비밀번호 확인",
     after: "비밀번호 재입력",
     type: "password",
+    autoComplete: "off",
   },
   {
     id: 4,
     div: "이메일 주소",
     after: "이메일 주소 입력",
     type: "email",
+    autoComplete: "on",
   },
 ];
