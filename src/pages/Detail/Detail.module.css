@@ -1,0 +1,13 @@
+.detailMain {
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+}
+
+.bookTotalInfoWrap {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 2%;
+  padding-left: 40px;
+}
