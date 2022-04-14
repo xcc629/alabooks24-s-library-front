@@ -3,6 +3,7 @@ import Nav from "../../components/Nav/Nav";
 import MainNav from "../../components/MainNav/MainNav";
 import BookInfo from "../../components/BookInfo/BookInfo";
 import BookDetailInfo from "../../components/BookDetailInfo/BookDetailInfo";
+import BASE_URL from "../../config";
 import style from "./Detail.module.css";
 
 function Detail() {
@@ -20,7 +21,7 @@ function Detail() {
 
   const bookId = 20;
   useEffect(() => {
-    fetch(`/books/${bookId}`, { method: "GET" })
+    fetch(`${BASE_URL}/books/${bookId}`, { method: "GET" })
       .then((res) => res.json())
       .then((result) => setbookInfoObj(result));
   }, []);

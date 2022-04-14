@@ -20,7 +20,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "distribute": "npm i && npm run build && pm2 serve build 3000 --name <project-front> --spa"
   },
   "eslintConfig": {
     "extends": [
@@ -41,6 +42,7 @@
     ]
   },
   "devDependencies": {
-    "http-proxy-middleware": "^2.0.4"
+    "http-proxy-middleware": "^2.0.4",
+    "pm2": "^5.2.0"
   }
 }
