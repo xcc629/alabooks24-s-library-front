@@ -1,13 +1,10 @@
 import styled from "styled-components";
 import Slider from "react-slick";
-import NextArrow from "../Slide/NextArrow";
-import PrevArrow from "../Slide/PrevArrow";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export default function NowBookList({ bookListObj }) {
-  console.log(bookListObj);
+export default function NowBookList({ bookListObj, onClickBook }) {
   const settings = {
     className: "center",
     centerMode: true,
@@ -24,7 +21,11 @@ export default function NowBookList({ bookListObj }) {
           return (
             <BooksWrapper key={data.id}>
               <Book key={data.id}>
-                <CoverWrapper>
+                <CoverWrapper
+                  onClick={() => {
+                    onClickBook(data.id);
+                  }}
+                >
                   <Cover src={data.imgUrl} alt="booksCover" />
                 </CoverWrapper>
                 <Rank>{}</Rank>
