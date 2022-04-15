@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
+    "http-proxy-middleware": "^2.0.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0",
@@ -13,7 +14,10 @@
     "react-icons": "^4.3.1",
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
+    "react-slick": "^0.28.1",
     "sass": "^1.49.9",
+    "slick-carousel": "^1.8.1",
+    "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -42,7 +46,6 @@
     ]
   },
   "devDependencies": {
-    "http-proxy-middleware": "^2.0.4",
     "pm2": "^5.2.0"
   }
 }

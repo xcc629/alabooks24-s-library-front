@@ -1,10 +1,19 @@
+import { useNavigate } from "react-router-dom";
 import style from "./MainNav.module.css";
+import styled from "styled-components";
 
 function MainNav() {
+  const navigate = useNavigate();
+
+  const goToMain = () => {
+    navigate("/");
+  };
   return (
     <section className={style.mainNavWrap}>
-      <div className={style.mainNavcontentWrap}>
-        <div className={style.logo}>ALA</div>
+      <MainWrapper>
+        <div className={style.logo} onClick={goToMain}>
+          ALA
+        </div>
         <ul className={style.inputWrap}>
           <li>
             <input type="text" className={style.mag} />
@@ -22,9 +31,18 @@ function MainNav() {
             <button>{}</button>
           </li>
         </ul>
-      </div>
+      </MainWrapper>
     </section>
   );
 }
 
 export default MainNav;
+
+const MainWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  padding: 15px 20px;
+  max-width: 1150px;
+  cursor: pointer;
+`;

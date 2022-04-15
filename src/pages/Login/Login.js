@@ -4,16 +4,17 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import BASE_URL from "../../config";
 import SignNav from "../../components/SignNav/SignNav";
 import "../Login/Login.scss";
+import { ImWarning } from "react-icons/im";
 
 function Login() {
   const [idValue, setIdValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
+  const [requestMessage, setrequestMessage] = useState("");
   const navigate = useNavigate();
 
   const goToSignup = () => {
     navigate("/signup");
   };
-
   const postLoginData = () => {
     fetch(`${BASE_URL}/members/login`, {
       method: "POST",
@@ -26,7 +27,7 @@ function Login() {
       }),
     })
       .then((response) => response.json())
-      .then((result) => console.log(result));
+      .then((result) => setrequestMessage(result));
   };
 
   return (
@@ -63,6 +64,12 @@ function Login() {
             </div>
           </div>
         </div>
+        {requestMessage.message && (
+          <span className="warningUp">
+            <ImWarning />
+            {`${requestMessage.message}`}
+          </span>
+        )}
         <button className="button" onClick={postLoginData}>
           로그인
         </button>
