@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Nav from "../../components/Nav/Nav";
 import MainNav from "../../components/MainNav/MainNav";
 import BookInfo from "../../components/BookInfo/BookInfo";
@@ -7,6 +8,7 @@ import BASE_URL from "../../config";
 import style from "./Detail.module.css";
 
 function Detail() {
+  const params = useParams();
   const [bookInfoObj, setbookInfoObj] = useState({
     author: "수산물녀",
     category: "romance",
@@ -19,9 +21,8 @@ function Detail() {
     title: "미끼는 미끼야",
   });
 
-  const bookId = 20;
   useEffect(() => {
-    fetch(`${BASE_URL}/books/${bookId}`, { method: "GET" })
+    fetch(`${BASE_URL}/books/${params.id}`, { method: "GET" })
       .then((res) => res.json())
       .then((result) => setbookInfoObj(result));
   }, []);
