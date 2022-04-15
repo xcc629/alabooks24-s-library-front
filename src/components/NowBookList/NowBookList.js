@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import Slider from "react-slick";
+import NextArrow from "../Slide/NextArrow";
+import PrevArrow from "../Slide/PrevArrow";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -10,8 +12,8 @@ export default function NowBookList({ bookListObj }) {
     className: "center",
     centerMode: true,
     infinite: true,
-    centerPadding: "60px",
     slidesToShow: 5,
+    scrollToShow: 1,
     speed: 500,
   };
   return (
@@ -57,11 +59,31 @@ const Title = styled.h1`
 
 const StyledSlider = styled(Slider)`
   .slick-list {
-    transform: translate3d(5px, 0px, 0px);
+    transform: translate3d(, 0px, 0px);
     .slick-track {
       width: 100%;
     }
   }
+ {
+    font-size: 2rem;
+    color: black;
+    z-index: 10;
+  }
+  .slick-prev{
+    left: -2.1rem;
+  }
+
+  .slick-prev,
+  .slick-next{
+    top: 39%;
+    transform: translate(0, 0);
+    z-index: 10;
+  }
+  .slick-prev:before,
+  .slick-next:before {
+    font-size: 2rem;
+    color: black;
+  
   }
 `;
 
@@ -86,15 +108,22 @@ const Cover = styled.img`
 
 const Rank = styled.div``;
 
-const InfoWrapper = styled.div``;
+const InfoWrapper = styled.div`
+  width: 200px;
+  padding-left: 15px;
+`;
 
 const InfoTitle = styled.h2`
-  text-align: center;
-  margin: 10px 24px;
-  font-size: 18px;
+  text-align: left;
+  margin: 20px auto 10px 0;
+  width: max-content;
+  font-size: 16px;
+  font-weight: 400;
 `;
 
 const InfoAuthor = styled.h2`
-  text-align: center;
-  margin: 10px;
+  text-align: left;
+  font-size: 16px;
+  color: gray;
+  font-weight: 400;
 `;
