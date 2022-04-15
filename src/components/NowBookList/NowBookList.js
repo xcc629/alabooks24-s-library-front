@@ -125,5 +125,5 @@ const InfoAuthor = styled.h2`
   text-align: left;
   font-size: 16px;
   color: gray;
-  font-weight: 400;
+  font-weight: 300;
 `;
