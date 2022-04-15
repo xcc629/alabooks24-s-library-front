@@ -30,7 +30,13 @@ export default function NowBookList({ bookListObj, onClickBook }) {
                 </CoverWrapper>
                 <Rank>{}</Rank>
                 <InfoWrapper>
-                  <InfoTitle>{data.title}</InfoTitle>
+                  <InfoTitle
+                    onClick={() => {
+                      onClickBook(data.id);
+                    }}
+                  >
+                    {data.title}
+                  </InfoTitle>
                   <InfoAuthor>{data.author}</InfoAuthor>
                 </InfoWrapper>
               </Book>
