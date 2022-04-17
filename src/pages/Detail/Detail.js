@@ -25,9 +25,8 @@ function Detail() {
     fetch(`${BASE_URL}/books/${params.id}`, { method: "GET" })
       .then((res) => res.json())
       .then((result) => setbookInfoObj(result));
-  }, []);
+  }, [params.id]);
 
-  console.log(bookInfoObj);
   return (
     <section>
       <Nav />

@@ -1,5 +1,8 @@
 import { IoIosArrowForward } from "react-icons/io";
+
 import style from "./BookInfo.module.css";
+
+import { ImCart } from "react-icons/im";
 
 function BookInfo(prop) {
   return (
@@ -45,7 +48,9 @@ function BookInfo(prop) {
           </div>
           <div className={style.buttonsWrap}>
             <button>"하트"</button>
-            <button className={style.cartButton}>"장바구니"</button>
+            <button className={style.cartButton}>
+              <ImCart />
+            </button>
             <button className={style.giftButton}>"선물"</button>
             <button className={style.purchaseButton}>소장하기</button>
           </div>

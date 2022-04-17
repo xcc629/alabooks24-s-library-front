@@ -109,9 +109,16 @@
 }
 .cartButton {
   margin: 0 0.4em;
+  border: 0.1rem solid rgba(192, 192, 192, 0.35);
+  border-radius: 0.2rem;
+  padding: 2px 16px 0 14px;
+  background-color: transparent;
+  color: gray;
+  font-size: 1.1rem;
 }
 .giftButton {
   margin-right: 0.4em;
+  padding: 0 15px;
 }
 
 .purchaseButton {

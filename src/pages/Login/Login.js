@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import styled from "styled-components";
 import BASE_URL from "../../config";
 import SignNav from "../../components/SignNav/SignNav";
 import "../Login/Login.scss";
@@ -11,6 +12,10 @@ function Login() {
   const [passwordValue, setPasswordValue] = useState("");
   const [requestMessage, setrequestMessage] = useState("");
   const navigate = useNavigate();
+
+  const goToMain = () => {
+    navigate("/");
+  };
 
   const goToSignup = () => {
     navigate("/signup");
@@ -26,8 +31,25 @@ function Login() {
         password: passwordValue,
       }),
     })
-      .then((response) => response.json())
-      .then((result) => setrequestMessage(result));
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.status === 400) {
+          setrequestMessage("아이디와 비밀번호를 입력해주세요.");
+        }
+        if (result.message) {
+          setrequestMessage("아이디 혹은 비밀번호가 틀렸습니다.");
+        }
+        if (result.token) {
+          localStorage.setItem("token", result.token);
+          goToMain();
+        }
+      });
+  };
+
+  const enterKey = (e) => {
+    if (e.keyCode === 13) {
+      postLoginData();
+    }
   };
 
   return (
@@ -43,13 +65,19 @@ function Login() {
           <input
             type="text"
             placeholder="아이디"
-            onKeyUp={(e) => setIdValue(e.target.value)}
+            onKeyUp={(e) => {
+              enterKey(e);
+              setIdValue(e.target.value);
+            }}
           />
-          <form>
+          <form onSubmit={(e) => e.preventDefault()}>
             <input
               type="password"
               placeholder="비밀번호"
-              onKeyUp={(e) => setPasswordValue(e.target.value)}
+              onKeyUp={(e) => {
+                enterKey(e);
+                setPasswordValue(e.target.value);
+              }}
               autoComplete="off"
             />
           </form>
@@ -64,11 +92,11 @@ function Login() {
             </div>
           </div>
         </div>
-        {requestMessage.message && (
-          <span className="warningUp">
+        {requestMessage.length !== 0 && (
+          <WarningUp>
             <ImWarning />
-            {`${requestMessage.message}`}
-          </span>
+            {`${requestMessage}`}
+          </WarningUp>
         )}
         <button className="button" onClick={postLoginData}>
           로그인
@@ -82,3 +110,11 @@ function Login() {
 }
 
 export default Login;
+
+const WarningUp = styled.span`
+  align-items: center;
+  padding-left: 10px;
+  margin-bottom: 20px;
+  color: rgba(233, 49, 49, 0.685);
+  font-size: 15px;
+`;
