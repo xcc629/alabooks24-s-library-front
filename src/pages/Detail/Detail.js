@@ -4,6 +4,7 @@ import Nav from "../../components/Nav/Nav";
 import MainNav from "../../components/MainNav/MainNav";
 import BookInfo from "../../components/BookInfo/BookInfo";
 import BookDetailInfo from "../../components/BookDetailInfo/BookDetailInfo";
+import CartAlert from "../../components/CartAlert/CartAlert";
 import BASE_URL from "../../config";
 import style from "./Detail.module.css";
 
@@ -20,6 +21,9 @@ function Detail() {
     publisher: "블레스",
     title: "미끼는 미끼야",
   });
+  const [cartMessage, setCartMessage] = useState("");
+  const [popup, setPopup] = useState(false);
+  let isCartIn = false;
 
   useEffect(() => {
     fetch(`${BASE_URL}/books/${params.id}`, { method: "GET" })
@@ -27,10 +31,52 @@ function Detail() {
       .then((result) => setbookInfoObj(result));
   }, [params.id]);
 
+  const onCartIn = () => {
+    fetch(`${BASE_URL}/members/cart/${params.id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          setCartMessage("카트에 담았습니다");
+          isCartIn = true;
+        }
+        console.log(res);
+        return res.json();
+      })
+      .then((result) => {
+        setCartMessage(result.message);
+      })
+      .then(OnCartMessage);
+    return isCartIn;
+  };
+
+  const OnCartMessage = () => {
+    setPopup(true);
+    setTimeout(function () {
+      setPopup(false);
+    }, 3000);
+  };
+
+  const OnCloseCartMessage = () => {
+    setPopup(false);
+  };
+
   return (
     <section>
       <Nav />
       <MainNav />
+      {popup && (
+        <CartAlert
+          cartMessage={cartMessage}
+          isCartIn={isCartIn}
+          OnCloseCartMessage={OnCloseCartMessage}
+        />
+      )}
       <section className={style.detailMain}>
         <main className={style.bookTotalInfoWrap}>
           <BookInfo
@@ -41,6 +87,7 @@ function Detail() {
             price={bookInfoObj.price}
             publisher={bookInfoObj.publisher}
             title={bookInfoObj.title}
+            onCartIn={onCartIn}
           />
           <BookDetailInfo
             isbn={bookInfoObj.isbn}
