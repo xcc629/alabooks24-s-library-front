@@ -43,7 +43,7 @@ function Main() {
       newArr[index] = !newArr[index];
       return newArr;
     });
-    navigator(`/books?category=${categoryName}`);
+    navigator(`/books?category=${category}`);
     setCategoryName(category);
   };
 
