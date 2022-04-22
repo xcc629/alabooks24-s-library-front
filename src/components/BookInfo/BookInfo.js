@@ -49,8 +49,7 @@ function BookInfo(prop) {
             <button>"하트"</button>
             <CartButton
               onClick={() => {
-                const isClicked = prop.onCartIn();
-                console.log("얍!", isClicked);
+                prop.onCartIn();
               }}
             >
               <ImCart />
@@ -72,6 +71,6 @@ const CartButton = styled.button`
   border-radius: 0.2rem;
   padding: 2px 16px 0 14px;
   background-color: transparent;
-  color: gray;
+  color: ${(props) => (props.color ? "red" : "gray")};
   font-size: 1.1rem;
 `;

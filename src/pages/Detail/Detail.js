@@ -10,20 +10,9 @@ import style from "./Detail.module.css";
 
 function Detail() {
   const params = useParams();
-  const [bookInfoObj, setbookInfoObj] = useState({
-    author: "수산물녀",
-    category: "romance",
-    id: 1,
-    imgUrl: "https://img.ridicdn.net/cover/510001099/xxlarge#1",
-    isbn: "9881783106321",
-    price: 14000,
-    publicationDate: "2010-10-12",
-    publisher: "블레스",
-    title: "미끼는 미끼야",
-  });
+  const [bookInfoObj, setbookInfoObj] = useState(initialObj);
   const [cartMessage, setCartMessage] = useState("");
   const [popup, setPopup] = useState(false);
-  let isCartIn = false;
 
   useEffect(() => {
     fetch(`${BASE_URL}/books/${params.id}`, { method: "GET" })
@@ -42,17 +31,34 @@ function Detail() {
     })
       .then((res) => {
         if (res.ok) {
-          setCartMessage("카트에 담았습니다");
-          isCartIn = true;
+          setCartMessage("카트에 담았습니다.");
+          return;
         }
-        console.log(res);
         return res.json();
       })
       .then((result) => {
-        setCartMessage(result.message);
+        if (!result) {
+          return;
+        }
+        if (result.message === "이미 카트에 존재하는 책입니다.") {
+          onCartOut();
+          setCartMessage("카트에서 삭제되었습니다.");
+        } else {
+          setCartMessage(result.message);
+        }
       })
       .then(OnCartMessage);
-    return isCartIn;
+  };
+
+  const onCartOut = () => {
+    fetch(`${BASE_URL}/members/cart/${params.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
   };
 
   const OnCartMessage = () => {
@@ -73,7 +79,6 @@ function Detail() {
       {popup && (
         <CartAlert
           cartMessage={cartMessage}
-          isCartIn={isCartIn}
           OnCloseCartMessage={OnCloseCartMessage}
         />
       )}
@@ -101,3 +106,15 @@ function Detail() {
 }
 
 export default Detail;
+
+const initialObj = {
+  author: "수산물녀",
+  category: "romance",
+  id: 1,
+  imgUrl: "https://img.ridicdn.net/cover/510001099/xxlarge#1",
+  isbn: "9881783106321",
+  price: 14000,
+  publicationDate: "2010-10-12",
+  publisher: "블레스",
+  title: "미끼는 미끼야",
+};
