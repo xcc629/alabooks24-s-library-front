@@ -17,7 +17,7 @@ function MainNav() {
   }, [localStorage.getItem("token")]);
 
   const onClickCartButton = () => {
-    isLogin ? goToCart() : goToLogin();
+    isLogin ? goToCart() : alert("로그인이 필요합니다");
   };
 
   const goToCart = () => {
@@ -25,7 +25,7 @@ function MainNav() {
   };
 
   const goToLogin = () => {
-    navigate("/");
+    navigate("/login");
   };
 
   const goToMain = () => {
