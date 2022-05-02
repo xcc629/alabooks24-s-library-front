@@ -1,25 +1,36 @@
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import styled from "styled-components";
+
 import BASE_URL from "../../config";
-import SignNav from "../../components/SignNav/SignNav";
-import "../Login/Login.scss";
+import SignNav from "../../components/navs/SignNav";
+
+import { LoginMain, WarningUp } from "./LoginStyled";
 import { ImWarning } from "react-icons/im";
 
 function Login() {
   const [idValue, setIdValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
+  const [keepLogin, setKeepLogin] = useState(false);
   const [requestMessage, setrequestMessage] = useState("");
   const navigate = useNavigate();
 
   const goToMain = () => {
     navigate("/");
   };
-
   const goToSignup = () => {
     navigate("/signup");
   };
+
+  const enterKey = (e) => {
+    if (e.keyCode === 13) {
+      postLoginData();
+    }
+  };
+  const onKeepLogin = () => {
+    setKeepLogin((prev) => !prev);
+  };
+
   const postLoginData = () => {
     fetch(`${BASE_URL}/members/login`, {
       method: "POST",
@@ -40,16 +51,12 @@ function Login() {
           setrequestMessage("아이디 혹은 비밀번호가 틀렸습니다.");
         }
         if (result.token) {
-          localStorage.setItem("token", result.token);
+          keepLogin
+            ? localStorage.setItem("token", result.token)
+            : sessionStorage.setItem("token", result.token);
           goToMain();
         }
       });
-  };
-
-  const enterKey = (e) => {
-    if (e.keyCode === 13) {
-      postLoginData();
-    }
   };
 
   return (
@@ -60,7 +67,7 @@ function Login() {
         </Helmet>
       </HelmetProvider>
       <SignNav />
-      <section className="loginMain">
+      <LoginMain>
         <div className="loginForm">
           <input
             type="text"
@@ -82,8 +89,8 @@ function Login() {
             />
           </form>
           <div className="loginOptionBox">
-            <label>
-              <input type="checkbox" name="auto_login" value="0" />
+            <label onClick={onKeepLogin}>
+              <input type="checkbox" name="auto_login" value={keepLogin} />
               <span>로그인 상태 유지</span>
             </label>
             <div>
@@ -104,17 +111,9 @@ function Login() {
         <button className="signupButton" onClick={goToSignup}>
           회원가입
         </button>
-      </section>
+      </LoginMain>
     </div>
   );
 }
 
 export default Login;
-
-const WarningUp = styled.span`
-  align-items: center;
-  padding-left: 10px;
-  margin-bottom: 20px;
-  color: rgba(233, 49, 49, 0.685);
-  font-size: 15px;
-`;

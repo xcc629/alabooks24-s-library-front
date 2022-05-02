@@ -2,11 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import BASE_URL from "../../config";
-import SignNav from "../../components/SignNav/SignNav";
-import GreenButton from "../../components/GreenButton/GreenButton";
-import SignupForm from "../../components/SignupForm/SignupForm";
+import SignNav from "../../components/navs/SignNav";
+import GreenButton from "../../components/buttons/GreenButton";
+import SignupForm from "./SignupForm";
 import "./Signup.scss";
-import "../../components/SignupForm/SignupForm.module.css";
+import "./SignupForm.module.css";
 import { ImWarning } from "react-icons/im";
 
 function Signup() {
@@ -33,20 +33,17 @@ function Signup() {
     passwordValidation();
     passwordConfirmValidation();
     emailAddressValidation();
-
     const {
       loginIdErrMessage,
       passwordErrMessage,
       passwordConfirmErrMessage,
       emailAddressErrMessage,
     } = valueError;
-
     const validationResult =
       !loginIdErrMessage.length &&
       !passwordErrMessage.length &&
       !passwordConfirmErrMessage.length &&
       !emailAddressErrMessage.length;
-
     return validationResult;
   };
 
@@ -70,6 +67,7 @@ function Signup() {
       });
       return;
     }
+    // fetch(`${BASE_URL}/members/validate/`)
     setvalueError((prev) => {
       return {
         ...prev,
@@ -82,7 +80,6 @@ function Signup() {
     const { password } = signupValueObj;
     const regPassword =
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
-
     if (password.length === 0) {
       setvalueError((prev) => {
         return { ...prev, passwordErrMessage: "비밀번호를 입력해주세요" };
@@ -98,7 +95,6 @@ function Signup() {
       });
       return;
     }
-
     setvalueError((prev) => {
       return {
         ...prev,

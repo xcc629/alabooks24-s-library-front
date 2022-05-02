@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Main from "./pages/Main/Main";
-import Login from "../src/pages/Login/Login";
-import Signup from "./pages/Signup/Signup";
-import Detail from "./pages/Detail/Detail";
-import Cartpage from "./pages/Cartpage/Cartpage";
+import Main from "./pages/main/Main";
+import Login from "../src/pages/login/Login";
+import Signup from "./pages/signup/Signup";
+import Detail from "./pages/bookdetail/Detail";
+import Cartpage from "./pages/cart/Cart";
 
 function Router() {
   return (
