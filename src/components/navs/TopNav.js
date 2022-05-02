@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import style from "./Nav.module.css";
 
 function Nav() {
   const navigate = useNavigate();
@@ -16,19 +15,21 @@ function Nav() {
 
   const onClickLogout = () => {
     localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     setIsLogin(false);
   };
 
   useEffect(() => {
     setIsLogin(localStorage.getItem("token"));
+    setIsLogin(sessionStorage.getItem("token"));
   }, [isLogin]);
 
   return (
-    <section className={style.navWrap}>
-      <div className={style.navcontentWrap}>
-        <ul className={style.novelmenu}>
+    <NavWrap>
+      <div className="navcontentWrap">
+        <ul className="novelmenu">
           <li style={{ paddingRight: 15 }}>웹툰/만화</li>
-          <li style={{ paddingRight: 15 }} className={style.webnovel}>
+          <li style={{ paddingRight: 15 }} className="webnovel">
             웹소설
           </li>
           <li style={{ paddingRight: 15 }}>도서</li>
@@ -40,25 +41,62 @@ function Nav() {
             <Lis onClick={onClickLogout}>로그아웃</Lis>
           </UlWrapper>
         ) : (
-          <ul className={style.usersmenu}>
+          <ul className="usersmenu">
             <li
-              className={style.signupButton}
+              className="signupButton"
               onClick={goToSignup}
               style={{ paddingRight: 15 }}
             >
               회원가입
             </li>
-            <li className={style.loginButton} onClick={goToLogin}>
+            <li className="loginButton" onClick={goToLogin}>
               로그인
             </li>
           </ul>
         )}
       </div>
-    </section>
+    </NavWrap>
   );
 }
 
 export default Nav;
+
+const NavWrap = styled.section`
+  border-bottom: 1px solid rgb(228, 228, 228);
+  cursor: pointer;
+
+  .navcontentWrap {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    padding: 0 20px;
+    max-width: 1150px;
+  }
+
+  .novelmenu,
+  .usersmenu {
+    display: flex;
+    padding: 15px 0;
+    font-size: 14px;
+  }
+
+  .novelmenu li,
+  .usersmenu li {
+    width: max-content;
+    color: rgb(117, 117, 117);
+    font-weight: 500;
+  }
+
+  .novelmenu .webnovel {
+    color: black;
+  }
+
+  .signupButton:hover,
+  .loginButton:hover {
+    color: rgb(193, 193, 193);
+    transition: 0.3s all;
+  }
+`;
 
 const UlWrapper = styled.ul`
   display: flex;

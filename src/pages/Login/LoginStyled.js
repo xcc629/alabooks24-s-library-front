@@ -1,16 +1,13 @@
-@mixin ui-size {
-  padding: 16px 20px;
-}
-@mixin font-size($size) {
-  font-size: $size;
-}
+import styled from "styled-components";
+import { theme } from "../../styles/theme";
 
-.loginMain {
+const LoginMain = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin: 100px auto;
   width: 400px;
+
   * {
     letter-spacing: -0.04em;
     cursor: pointer;
@@ -22,8 +19,8 @@
 
     input {
       border: 1px solid $border-color;
-      @include ui-size();
-      @include font-size(15px);
+      padding: 16px 20px;
+      font-size: 15px;
     }
     input[type="password"] {
       width: 100%;
@@ -45,13 +42,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      @include ui-size();
+      padding: 16px 20px;
       border: 1px solid $border-color;
       border-bottom-right-radius: 4px;
       border-bottom-left-radius: 4px;
       background-color: rgb(212, 247, 225);
       color: rgb(100, 128, 116);
-      @include font-size(12px);
+      font-size: 12px;
 
       label {
         display: flex;
@@ -62,7 +59,7 @@
           height: 20px;
         }
         span:hover {
-          color: $theme-color;
+          color: ${theme.themeColor};
         }
       }
       span {
@@ -73,7 +70,7 @@
         border-left: 1px solid rgb(161, 202, 179);
       }
       span:hover {
-        color: $theme-color;
+        color: ${theme.themeColor};
       }
     }
   }
@@ -91,12 +88,22 @@
   }
 
   .signupButton {
-    @include ui-size();
-    border: 1px solid $border-color;
+    padding: 16px 20px;
+    border: 1px solid ${theme.themeColor};
     border-radius: 4px;
     background-color: white;
     color: rgb(148, 148, 148);
     font-weight: 600;
-    @include font-size(16px);
+    font-size: 16px;
   }
-}
+`;
+
+const WarningUp = styled.span`
+  align-items: center;
+  padding-left: 10px;
+  margin-bottom: 20px;
+  color: rgba(233, 49, 49, 0.685);
+  font-size: 15px;
+`;
+
+export { LoginMain, WarningUp };

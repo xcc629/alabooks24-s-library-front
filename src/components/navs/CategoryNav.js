@@ -65,8 +65,7 @@ const Category = styled.li`
   width: max-content;
   color: ${(props) =>
     props.color === "true" ? "hsl(166, 41%, 51%)" : "black"};
-
-  &: hover {
+  :hover  {
     opacity: ${(props) => props.color === "false" && "0.6"};
     transition: ${(props) => props.color === "false" && "all 0.3s;"};
   }

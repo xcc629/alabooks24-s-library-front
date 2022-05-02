@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Nav from "../../components/Nav/Nav";
-import MainNav from "../../components/MainNav/MainNav";
-import BookInfo from "../../components/BookInfo/BookInfo";
-import BookDetailInfo from "../../components/BookDetailInfo/BookDetailInfo";
-import CartAlert from "../../components/CartAlert/CartAlert";
+import Nav from "../../components/navs/TopNav";
+import MainNav from "../../components/navs/MiddleNav";
+import BookInfo from "./BookInfo";
+import BookDetailInfo from "./BookDetailInfo";
+import CartAlert from "../../components/carts/CartAlert";
 import BASE_URL from "../../config";
 import style from "./Detail.module.css";
 
@@ -26,7 +26,11 @@ function Detail() {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${
+          localStorage.getItem("token")
+            ? localStorage.getItem("token")
+            : sessionStorage.getItem("token")
+        }`,
       },
     })
       .then((res) => {
@@ -56,7 +60,11 @@ function Detail() {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${
+          localStorage.getItem("token")
+            ? localStorage.getItem("token")
+            : sessionStorage.getItem("token")
+        }`,
       },
     });
   };
