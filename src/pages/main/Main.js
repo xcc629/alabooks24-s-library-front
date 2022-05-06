@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { getBookCategory } from "../../apis/books";
+import { UserContext } from "../../context/context";
 
 import TopNav from "../../components/navs/TopNav";
 import MiddleNav from "../../components/navs/MiddleNav";
@@ -14,6 +15,7 @@ function MainDelay() {
   const [isLoading, setIsLoading] = useState(true);
   const [bookListObj, setBookListObj] = useState(null);
   const [categoryName, setCategoryName] = useState("romance");
+  const me = useContext(UserContext);
 
   useEffect(() => {
     getBookCategory(categoryName)

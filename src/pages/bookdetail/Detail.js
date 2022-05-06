@@ -1,29 +1,47 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
 
 import { getBookInfo } from "../../apis/books";
 import { postCardtIn, deleteCartOut } from "../../apis/cart";
 
+import Loading from "../../components/loading/Loading";
 import Nav from "../../components/navs/TopNav";
 import MainNav from "../../components/navs/MiddleNav";
-import BookInfo from "./BookInfo";
+import BookInfo from "./BookMainInfo";
 import BookDetailInfo from "./BookDetailInfo";
 import CartAlert from "../../components/carts/CartAlert";
 
-import style from "./Detail.module.css";
-
-function Detail() {
+function DetailLoading() {
   const params = useParams();
-  const [bookInfoObj, setbookInfoObj] = useState(initialObj);
+  const bookId = params.id;
+  const [bookInfoObj, setbookInfoObj] = useState(null);
+  const [isLoading, setisLoading] = useState(true);
+
+  useEffect(() => {
+    getBookInfo(bookId)
+      .then((data) => {
+        setbookInfoObj(data);
+        return Boolean(data.id);
+      })
+      .then((isComplete) => isComplete && setisLoading(false));
+  }, [bookId]);
+
+  return isLoading ? (
+    <Loading />
+  ) : (
+    <Detail bookId={bookId} bookInfoObj={bookInfoObj} />
+  );
+}
+
+function Detail(props) {
   const [cartMessage, setCartMessage] = useState("");
   const [popup, setPopup] = useState(false);
 
-  useEffect(() => {
-    getBookInfo(params.id).then((data) => setbookInfoObj(data));
-  }, [params.id]);
+  const { bookId, bookInfoObj } = props;
 
   const onCartIn = () => {
-    postCardtIn(params.id)
+    postCardtIn(bookId)
       .then((data) => {
         if (data.messgae === "카트에 담았습니다") {
           setCartMessage("카트에서 삭제되었습니다.");
@@ -39,7 +57,7 @@ function Detail() {
   };
 
   const onCartOut = () => {
-    deleteCartOut(params.id);
+    deleteCartOut(bookId);
   };
 
   const OnCartMessage = () => {
@@ -63,8 +81,8 @@ function Detail() {
           OnCloseCartMessage={OnCloseCartMessage}
         />
       )}
-      <section className={style.detailMain}>
-        <main className={style.bookTotalInfoWrap}>
+      <DetailMain>
+        <main className="bookTotalInfoWrap">
           <BookInfo
             id={bookInfoObj.id}
             author={bookInfoObj.author}
@@ -81,21 +99,23 @@ function Detail() {
           />
         </main>
         <aside style={{ width: "15%" }}>"와"</aside>
-      </section>
+      </DetailMain>
     </section>
   );
 }
 
-export default Detail;
+export default DetailLoading;
 
-const initialObj = {
-  author: "수산물녀",
-  category: "romance",
-  id: 1,
-  imgUrl: "https://img.ridicdn.net/cover/510001099/xxlarge#1",
-  isbn: "9881783106321",
-  price: 14000,
-  publicationDate: "2010-10-12",
-  publisher: "블레스",
-  title: "미끼는 미끼야",
-};
+const DetailMain = styled.section`
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+
+  .bookTotalInfoWrap {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 2%;
+    padding-left: 40px;
+  }
+`;

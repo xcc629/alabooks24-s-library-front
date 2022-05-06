@@ -1,4 +1,6 @@
-.signupWap {
+import styled from "styled-components";
+
+const SignupWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -20,4 +22,6 @@
     color: rgba(233, 49, 49, 0.685);
     font-size: 15px;
   }
-}
+`;
+
+export { SignupWrapper };
