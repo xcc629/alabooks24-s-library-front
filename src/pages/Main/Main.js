@@ -22,17 +22,6 @@ function Main() {
     })
       .then((res) => res.json())
       .then((result) => setBookListObj(result));
-  }, []);
-
-  useEffect(() => {
-    fetch(`${BASE_URL}/books?category=${categoryName}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((result) => setBookListObj(result));
   }, [categoryName]);
 
   const onClickCategory = (category, index) => {
