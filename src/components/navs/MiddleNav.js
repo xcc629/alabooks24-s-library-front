@@ -1,23 +1,30 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
+import { getLoginCookie } from "../../utils/cookie";
+
+import BookPop from "./navPop";
+
 import { BsBell, BsCart3 } from "react-icons/bs";
 import { ImBooks } from "react-icons/im";
 import { AiOutlineUser } from "react-icons/ai";
-import BookPop from "./navPop";
 
 function MainNav() {
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(
-    Boolean(localStorage.getItem("token"))
+    Boolean(getLoginCookie("token")) || Boolean(sessionStorage.getItem("token"))
   );
 
   useEffect(() => {
     setIsLogin(
-      Boolean(localStorage.getItem("token")) ||
+      Boolean(getLoginCookie("token")) ||
         Boolean(sessionStorage.getItem("token"))
     );
-  }, [localStorage.getItem("token"), sessionStorage.getItem("token")]);
+  }, [
+    Boolean(getLoginCookie("token")) ||
+      Boolean(sessionStorage.getItem("token")),
+  ]);
 
   const onClickCartButton = () => {
     isLogin ? goToCart() : alert("로그인이 필요합니다");

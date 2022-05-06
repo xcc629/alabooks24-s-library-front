@@ -1,12 +1,18 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import BASE_URL from "../../config";
+
+import {
+  postSignup,
+  duplicateCheckId,
+  duplicateCheckEmail,
+} from "../../apis/user";
+
 import SignNav from "../../components/navs/SignNav";
 import GreenButton from "../../components/buttons/GreenButton";
 import SignupForm from "./SignupForm";
+
 import "./Signup.scss";
-import "./SignupForm.module.css";
 import { ImWarning } from "react-icons/im";
 
 function Signup() {
@@ -49,6 +55,17 @@ function Signup() {
 
   const idValidation = () => {
     const { loginId } = signupValueObj;
+
+    duplicateCheckId(loginId).then((data) =>
+      setvalueError((prev) => {
+        return {
+          ...prev,
+          loginIdErrMessage:
+            data.message === "사용 가능한 아이디입니다" ? "" : data.message,
+        };
+      })
+    );
+
     const regId = /^[a-zA-Z0-9]{5,20}$/;
     if (loginId.length === 0) {
       setvalueError((prev) => {
@@ -67,7 +84,6 @@ function Signup() {
       });
       return;
     }
-    // fetch(`${BASE_URL}/members/validate/`)
     setvalueError((prev) => {
       return {
         ...prev,
@@ -134,6 +150,17 @@ function Signup() {
     const { emailAddress } = signupValueObj;
     const regemailAddress = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+(.)[a-zA-Z0-9]+$/;
 
+    duplicateCheckEmail(emailAddress).then((data) =>
+      setvalueError((prev) => {
+        return {
+          ...prev,
+          emailAddressErrMessage:
+            data.message === "사용 가능한 이메일 주소입니다"
+              ? ""
+              : data.message,
+        };
+      })
+    );
     if (emailAddress.length === 0) {
       setvalueError((prev) => {
         return { ...prev, emailAddressErrMessage: "이메일을 입력해주세요" };
@@ -158,42 +185,20 @@ function Signup() {
 
   const onClick = () => {
     if (totalValidation()) {
-      postHandler();
-      goToLogin();
+      onSignup();
     }
   };
 
   const onKeyDownEnter = (e) => {
-    const {
-      loginIdErrMessage,
-      passwordErrMessage,
-      passwordConfirmErrMessage,
-      emailAddressErrMessage,
-    } = valueError;
-    if (e.keyCode === 13) {
-      totalValidation();
-      if (
-        !loginIdErrMessage.length &&
-        !passwordErrMessage.length &&
-        !passwordConfirmErrMessage.length &&
-        !emailAddressErrMessage.length
-      ) {
-        postHandler();
-        goToLogin();
-      }
+    if (e.key === "Enter") {
+      onSignup();
     }
   };
 
-  const postHandler = () => {
-    fetch(`${BASE_URL}/members/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(signupValueObj),
-    })
-      .then((res) => res.json())
-      .then((result) => console.log(result));
+  const onSignup = () => {
+    postSignup(signupValueObj).then((data) =>
+      data.error ? null : goToLogin()
+    );
   };
 
   return (
@@ -230,7 +235,6 @@ function Signup() {
             {` ${valueError.loginIdErrMessage}`}
           </span>
         )}
-
         <div className="signupPasswordsWap">
           {datas.map((data) => {
             return (
@@ -250,7 +254,6 @@ function Signup() {
             );
           })}
         </div>
-
         <div className="signupRePasswordsWap">
           {datas.map((data) => {
             return (
@@ -280,7 +283,6 @@ function Signup() {
             }`}
           </span>
         )}
-
         <div className="signupEmail">
           {datas.map((data) => {
             return (
@@ -306,8 +308,7 @@ function Signup() {
             {` ${valueError.emailAddressErrMessage}`}
           </span>
         )}
-
-        <GreenButton span={"회원 가입 완료"} onClick={onClick} />
+        <GreenButton content="회원 가입 완료" onClick={onClick} />
       </section>
     </div>
   );

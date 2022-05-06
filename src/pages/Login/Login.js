@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 
-import BASE_URL from "../../config";
+import { setLoginCookie } from "../../utils/cookie";
+import { postLoginData } from "../../apis/user";
 import SignNav from "../../components/navs/SignNav";
 
 import { LoginMain, WarningUp } from "./LoginStyled";
@@ -24,39 +25,29 @@ function Login() {
 
   const enterKey = (e) => {
     if (e.keyCode === 13) {
-      postLoginData();
+      onLogin();
     }
   };
   const onKeepLogin = () => {
     setKeepLogin((prev) => !prev);
   };
 
-  const postLoginData = () => {
-    fetch(`${BASE_URL}/members/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        loginId: idValue,
-        password: passwordValue,
-      }),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        if (result.status === 400) {
-          setrequestMessage("아이디와 비밀번호를 입력해주세요.");
-        }
-        if (result.message) {
-          setrequestMessage("아이디 혹은 비밀번호가 틀렸습니다.");
-        }
-        if (result.token) {
-          keepLogin
-            ? localStorage.setItem("token", result.token)
-            : sessionStorage.setItem("token", result.token);
-          goToMain();
-        }
-      });
+  const onLogin = () => {
+    postLoginData(idValue, passwordValue).then((data) => {
+      console.log(data);
+      if (data.status === 400) {
+        setrequestMessage("아이디와 비밀번호를 입력해주세요.");
+      }
+      if (data.message) {
+        setrequestMessage("아이디 혹은 비밀번호가 틀렸습니다.");
+      }
+      if (data.token) {
+        keepLogin
+          ? setLoginCookie("token", data.token)
+          : sessionStorage.setItem("token", data.token);
+        goToMain();
+      }
+    });
   };
 
   return (
@@ -105,7 +96,7 @@ function Login() {
             {`${requestMessage}`}
           </WarningUp>
         )}
-        <button className="button" onClick={postLoginData}>
+        <button className="button" onClick={onLogin}>
           로그인
         </button>
         <button className="signupButton" onClick={goToSignup}>

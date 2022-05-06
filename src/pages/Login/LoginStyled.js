@@ -18,12 +18,13 @@ const LoginMain = styled.section`
     margin-bottom: 10px;
 
     input {
-      border: 1px solid $border-color;
+      border: 1px solid ${theme.themeColor};
       padding: 16px 20px;
       font-size: 15px;
     }
     input[type="password"] {
       width: 100%;
+      border-top: 0.5px;
     }
     input[type="text"] {
       border-top-right-radius: 4px;
