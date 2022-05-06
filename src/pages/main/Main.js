@@ -24,7 +24,9 @@ function MainDelay() {
         return data.length;
       })
       .then((isComplete) => isComplete && setIsLoading(false));
-  }, [categoryName]);
+
+    console.log(me);
+  }, [categoryName, me]);
 
   return isLoading ? (
     <>

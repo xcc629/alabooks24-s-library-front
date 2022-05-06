@@ -6,6 +6,7 @@ export const UserContext = createContext();
 export const UserDispatchContext = createContext();
 
 const initialUser = {
+  id: "",
   loginId: "",
   emailAddress: "",
   joinDate: "",
@@ -30,12 +31,15 @@ export function ContextProvider({ children }) {
     : sessionStorage.getItem("token");
 
   useEffect(() => {
-    if (token && user.loginId === "") {
+    console.log("Context", token);
+    if (token) {
       getUserInfo(token).then((data) => {
-        userDispatch({ type: "LOGIN", payload: data });
+        if (data && !data.message) {
+          userDispatch({ type: "LOGIN", payload: data });
+        }
       });
     }
-  }, [token, user.loginId]);
+  }, [token, user.id]);
 
   return (
     <UserContext.Provider value={user}>

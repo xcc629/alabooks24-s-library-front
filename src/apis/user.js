@@ -9,9 +9,7 @@ export const getUserInfo = async (token) => {
     },
   })
     .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-    });
+    .then((data) => data);
 };
 
 export const postLoginData = async (idValue, passwordValue) => {

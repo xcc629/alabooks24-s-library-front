@@ -1,27 +1,29 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { getLoginCookie, removeLoginCookie } from "../../utils/cookie";
+
 import styled from "styled-components";
 
 function Nav() {
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
-  const goToSignup = () => {
-    navigate("/signup");
-  };
 
-  const goToLogin = () => {
-    navigate("/login");
+  const handleNavigate = (path) => {
+    navigate(path);
   };
 
   const onClickLogout = () => {
-    localStorage.removeItem("token");
+    removeLoginCookie("token");
     sessionStorage.removeItem("token");
     setIsLogin(false);
   };
 
   useEffect(() => {
-    setIsLogin(localStorage.getItem("token"));
-    setIsLogin(sessionStorage.getItem("token"));
+    setIsLogin(
+      Boolean(getLoginCookie("token")) ||
+        Boolean(sessionStorage.getItem("token"))
+    );
   }, [isLogin]);
 
   return (
@@ -44,12 +46,15 @@ function Nav() {
           <ul className="usersmenu">
             <li
               className="signupButton"
-              onClick={goToSignup}
+              onClick={() => handleNavigate("/signup")}
               style={{ paddingRight: 15 }}
             >
               회원가입
             </li>
-            <li className="loginButton" onClick={goToLogin}>
+            <li
+              className="loginButton"
+              onClick={() => handleNavigate("/login")}
+            >
               로그인
             </li>
           </ul>

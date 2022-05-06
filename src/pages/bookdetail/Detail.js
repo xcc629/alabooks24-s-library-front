@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
-import { getBookInfo } from "../../apis/books";
+import { getBookInfo, getBestSeller } from "../../apis/books";
+import { getComment } from "../../apis/comment";
 import { postCardtIn, deleteCartOut } from "../../apis/cart";
 
 import Loading from "../../components/loading/Loading";
@@ -10,15 +11,21 @@ import Nav from "../../components/navs/TopNav";
 import MainNav from "../../components/navs/MiddleNav";
 import BookInfo from "./BookMainInfo";
 import BookDetailInfo from "./BookDetailInfo";
+import BestSeller from "./BestSeller";
+import Comment from "../../components/comment/Comment";
 import CartAlert from "../../components/carts/CartAlert";
 
 function DetailLoading() {
   const params = useParams();
   const bookId = params.id;
+  const [bestSellerList, setBestSellerList] = useState([]);
   const [bookInfoObj, setbookInfoObj] = useState(null);
+  const [commentList, setCommentList] = useState([]);
   const [isLoading, setisLoading] = useState(true);
 
   useEffect(() => {
+    getBestSeller().then((data) => setBestSellerList(data));
+    getComment(bookId).then((data) => setCommentList(data));
     getBookInfo(bookId)
       .then((data) => {
         setbookInfoObj(data);
@@ -30,7 +37,12 @@ function DetailLoading() {
   return isLoading ? (
     <Loading />
   ) : (
-    <Detail bookId={bookId} bookInfoObj={bookInfoObj} />
+    <Detail
+      bookId={bookId}
+      bookInfoObj={bookInfoObj}
+      bestSellerList={bestSellerList}
+      commentList={commentList}
+    />
   );
 }
 
@@ -38,7 +50,7 @@ function Detail(props) {
   const [cartMessage, setCartMessage] = useState("");
   const [popup, setPopup] = useState(false);
 
-  const { bookId, bookInfoObj } = props;
+  const { bookId, bookInfoObj, bestSellerList, commentList } = props;
 
   const onCartIn = () => {
     postCardtIn(bookId)
@@ -97,8 +109,11 @@ function Detail(props) {
             isbn={bookInfoObj.isbn}
             publicationDate={bookInfoObj.publicationDate}
           />
+          <Comment commentList={commentList} />
         </main>
-        <aside style={{ width: "15%" }}>"와"</aside>
+        <aside style={{ width: "15%" }}>
+          <BestSeller bestSellerList={bestSellerList} />
+        </aside>
       </DetailMain>
     </section>
   );
@@ -113,7 +128,7 @@ const DetailMain = styled.section`
 
   .bookTotalInfoWrap {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
     padding-top: 2%;
     padding-left: 40px;
