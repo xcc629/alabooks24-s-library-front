@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import SBRB from "../buttons/SilverBorderRoundButton";
+import SBRB from "../button/SilverBorderRoundButton";
 import { AiOutlineCheckSquare, AiFillCheckSquare } from "react-icons/ai";
 
 function CartListCard({

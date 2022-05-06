@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import CartListCard from "./CartListCard";
-import SBRB from "../buttons/SilverBorderRoundButton";
+import SBRB from "../button/SilverBorderRoundButton";
 import { AiOutlineCheckSquare, AiFillCheckSquare } from "react-icons/ai";
 
 function CartList({

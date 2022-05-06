@@ -9,7 +9,7 @@ import {
 } from "../../apis/user";
 
 import SignNav from "../../components/navs/SignNav";
-import GreenButton from "../../components/buttons/GreenButton";
+import GreenButton from "../../components/button/GreenButton";
 import SignupForm from "./SignupForm";
 
 import "./Signup.scss";
