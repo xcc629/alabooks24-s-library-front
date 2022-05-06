@@ -3,7 +3,7 @@ import styled from "styled-components";
 const BookInfoContentWrap = styled.div`
   display: flex;
   justify-content: flex-start;
-  margin: auto;
+
   max-width: 1134px;
 
   .bookImageAndpreviewWrap {
