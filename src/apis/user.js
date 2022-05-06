@@ -1,5 +1,19 @@
 import BASE_URL from "../config";
 
+export const getUserInfo = async (token) => {
+  return await fetch(`${BASE_URL}/members/myInfo`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
+};
+
 export const postLoginData = async (idValue, passwordValue) => {
   return await fetch(`${BASE_URL}/members/login`, {
     method: "POST",

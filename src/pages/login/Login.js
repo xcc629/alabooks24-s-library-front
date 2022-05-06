@@ -34,7 +34,6 @@ function Login() {
 
   const onLogin = () => {
     postLoginData(idValue, passwordValue).then((data) => {
-      console.log(data);
       if (data.status === 400) {
         setrequestMessage("아이디와 비밀번호를 입력해주세요.");
       }
