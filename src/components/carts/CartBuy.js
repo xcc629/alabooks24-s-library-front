@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { AiFillCheckCircle } from "react-icons/ai";
-import GreenButton from "../buttons/GreenButton";
+import GreenButton from "../button/GreenButton";
 
 function CartBuy({ cartData, checked }) {
   const [totalBooks, setTotalBooks] = useState(0);
