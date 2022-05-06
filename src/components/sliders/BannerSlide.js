@@ -1,0 +1,36 @@
+import styled from "styled-components";
+import Slider from "react-slick";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+export default function BannerSlide({ bookListObj }) {
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToshow: 3,
+    slidesToScrill: 3,
+  };
+  return (
+    <Wrapper>
+      <StyledSlider {...settings}>
+        <div></div>
+      </StyledSlider>
+    </Wrapper>
+  );
+}
+
+const Wrapper = styled.section`
+  display: flex;
+  justify-content: space-between;
+  margin: 50px auto;
+  border-radius: 0.5rem;
+  padding: 50px 20px;
+  max-width: 1150px;
+  min-height: 300px;
+  background: linear-gradient(to right, #ccd1bd, #b3d5df, #e59f85);
+  cursor: pointer;
+`;
+
+const StyledSlider = styled(Slider)``;

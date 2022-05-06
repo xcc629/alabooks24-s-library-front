@@ -73,6 +73,9 @@
   font-weight: 600;
   color: rgb(116, 116, 116);
 }
+.priceTable {
+  width: max-content;
+}
 
 .priceTable td {
   border-top: 1px solid rgba(192, 192, 192, 0.35);
@@ -104,11 +107,10 @@
   justify-content: end;
   margin-top: 1rem;
 }
-.cartButton {
-  margin: 0 0.4em;
-}
+
 .giftButton {
   margin-right: 0.4em;
+  padding: 0 15px;
 }
 
 .purchaseButton {
