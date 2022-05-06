@@ -39,7 +39,7 @@ function SignupForm({
   return (
     <div className={style.wap}>
       <span className={changeStyle}>{changeStr}</span>
-      <form>
+      <form onSubmit={(e) => e.preventDefault()}>
         <input
           name={name}
           type={type}

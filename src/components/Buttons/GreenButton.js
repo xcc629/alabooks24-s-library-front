@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-function GreenButton({ content }) {
-  return <Button>{content}</Button>;
+function GreenButton({ content, onClick }) {
+  return <Button onClick={onClick}>{content}</Button>;
 }
 
 export default GreenButton;

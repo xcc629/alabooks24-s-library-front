@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+
+import { getBookInfo } from "../../apis/books";
+import { postCardtIn, deleteCartOut } from "../../apis/cart";
+
 import Nav from "../../components/navs/TopNav";
 import MainNav from "../../components/navs/MiddleNav";
 import BookInfo from "./BookInfo";
 import BookDetailInfo from "./BookDetailInfo";
 import CartAlert from "../../components/carts/CartAlert";
-import BASE_URL from "../../config";
+
 import style from "./Detail.module.css";
 
 function Detail() {
@@ -15,58 +19,27 @@ function Detail() {
   const [popup, setPopup] = useState(false);
 
   useEffect(() => {
-    fetch(`${BASE_URL}/books/${params.id}`, { method: "GET" })
-      .then((res) => res.json())
-      .then((result) => setbookInfoObj(result));
+    getBookInfo(params.id).then((data) => setbookInfoObj(data));
   }, [params.id]);
 
   const onCartIn = () => {
-    fetch(`${BASE_URL}/members/cart/${params.id}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${
-          localStorage.getItem("token")
-            ? localStorage.getItem("token")
-            : sessionStorage.getItem("token")
-        }`,
-      },
-    })
-      .then((res) => {
-        if (res.ok) {
-          setCartMessage("카트에 담았습니다.");
-          return;
+    postCardtIn(params.id)
+      .then((data) => {
+        if (data.messgae === "카트에 담았습니다") {
+          setCartMessage("카트에서 삭제되었습니다.");
         }
-        return res.json();
-      })
-      .then((result) => {
-        if (!result) {
-          return;
-        }
-        if (result.message === "이미 카트에 존재하는 책입니다.") {
+        if (data.message === "이미 카트에 존재하는 책입니다.") {
           onCartOut();
           setCartMessage("카트에서 삭제되었습니다.");
         } else {
-          setCartMessage(result.message);
+          setCartMessage(data.message);
         }
       })
       .then(OnCartMessage);
   };
 
   const onCartOut = () => {
-    fetch(`${BASE_URL}/members/cart/${params.id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${
-          localStorage.getItem("token")
-            ? localStorage.getItem("token")
-            : sessionStorage.getItem("token")
-        }`,
-      },
-    });
+    deleteCartOut(params.id);
   };
 
   const OnCartMessage = () => {
