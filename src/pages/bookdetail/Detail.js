@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -23,7 +23,7 @@ function DetailLoading() {
   const [commentList, setCommentList] = useState([]);
   const [isLoading, setisLoading] = useState(true);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     getBestSeller().then((data) => setBestSellerList(data));
     getComment(bookId).then((data) => setCommentList(data));
     getBookInfo(bookId)
@@ -31,18 +31,30 @@ function DetailLoading() {
         setbookInfoObj(data);
         return Boolean(data.id);
       })
-      .then((isComplete) => isComplete && setisLoading(false));
+      .then((isComplete) => {
+        isComplete && setisLoading(false);
+        return isComplete;
+      })
+      .then((isComplete) => {
+        isComplete && document.documentElement.scrollTo(0, 0);
+        if (isLoading) {
+          window.history.scrollRestoration = "manual";
+        }
+        window.history.scrollRestoration = "auto";
+      });
   }, [bookId]);
 
   return isLoading ? (
     <Loading />
   ) : (
-    <Detail
-      bookId={bookId}
-      bookInfoObj={bookInfoObj}
-      bestSellerList={bestSellerList}
-      commentList={commentList}
-    />
+    <>
+      <Detail
+        bookId={bookId}
+        bookInfoObj={bookInfoObj}
+        bestSellerList={bestSellerList}
+        commentList={commentList}
+      />
+    </>
   );
 }
 

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { theme } from "../../styles/theme";
 
@@ -23,10 +24,18 @@ function BestSeller(props) {
 }
 
 function BestSellerCard(props) {
+  const navigate = useNavigate();
   const { rank, data } = props;
-  const { title } = data;
+  const { id, title } = data;
+
+  const goToDetail = (bookId) => {
+    navigate(`/books/${bookId}`, {
+      state: { bookId: bookId },
+    });
+  };
+
   return (
-    <CardWrapper>
+    <CardWrapper onClick={() => goToDetail(id)}>
       <p>{rank + 1}위</p>
       <p>{title.length >= 10 ? title.slice(0, 10) + "..." : title}</p>
     </CardWrapper>
