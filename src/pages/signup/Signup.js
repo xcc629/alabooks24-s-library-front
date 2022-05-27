@@ -8,11 +8,12 @@ import {
   duplicateCheckEmail,
 } from "../../apis/user";
 
+import { SignupWrapper } from "./Signupstyled";
+
 import SignNav from "../../components/navs/SignNav";
-import GreenButton from "../../components/buttons/GreenButton";
+import GreenButton from "../../components/button/GreenButton";
 import SignupForm from "./SignupForm";
 
-import "./Signup.scss";
 import { ImWarning } from "react-icons/im";
 
 function Signup() {
@@ -56,16 +57,6 @@ function Signup() {
   const idValidation = () => {
     const { loginId } = signupValueObj;
 
-    duplicateCheckId(loginId).then((data) =>
-      setvalueError((prev) => {
-        return {
-          ...prev,
-          loginIdErrMessage:
-            data.message === "사용 가능한 아이디입니다" ? "" : data.message,
-        };
-      })
-    );
-
     const regId = /^[a-zA-Z0-9]{5,20}$/;
     if (loginId.length === 0) {
       setvalueError((prev) => {
@@ -90,6 +81,16 @@ function Signup() {
         loginIdErrMessage: "",
       };
     });
+
+    duplicateCheckId(loginId).then((data) =>
+      setvalueError((prev) => {
+        return {
+          ...prev,
+          loginIdErrMessage:
+            data.message === "사용 가능한 아이디입니다" ? "" : data.message,
+        };
+      })
+    );
   };
 
   const passwordValidation = () => {
@@ -150,17 +151,6 @@ function Signup() {
     const { emailAddress } = signupValueObj;
     const regemailAddress = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+(.)[a-zA-Z0-9]+$/;
 
-    duplicateCheckEmail(emailAddress).then((data) =>
-      setvalueError((prev) => {
-        return {
-          ...prev,
-          emailAddressErrMessage:
-            data.message === "사용 가능한 이메일 주소입니다"
-              ? ""
-              : data.message,
-        };
-      })
-    );
     if (emailAddress.length === 0) {
       setvalueError((prev) => {
         return { ...prev, emailAddressErrMessage: "이메일을 입력해주세요" };
@@ -181,6 +171,18 @@ function Signup() {
         emailAddressErrMessage: "",
       };
     });
+
+    duplicateCheckEmail(emailAddress).then((data) =>
+      setvalueError((prev) => {
+        return {
+          ...prev,
+          emailAddressErrMessage:
+            data.message === "사용 가능한 이메일 주소입니다"
+              ? ""
+              : data.message,
+        };
+      })
+    );
   };
 
   const onClick = () => {
@@ -209,7 +211,7 @@ function Signup() {
         </Helmet>
       </HelmetProvider>
       <SignNav />
-      <section className="signupWap">
+      <SignupWrapper>
         <div className="signupIdWap">
           {datas.map((data) => {
             return (
@@ -309,7 +311,7 @@ function Signup() {
           </span>
         )}
         <GreenButton content="회원 가입 완료" onClick={onClick} />
-      </section>
+      </SignupWrapper>
     </div>
   );
 }

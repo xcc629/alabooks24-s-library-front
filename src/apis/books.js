@@ -16,3 +16,11 @@ export const getBookCategory = async (category) => {
     .then((res) => res.json())
     .then((data) => data);
 };
+
+export const getBestSeller = async () => {
+  return fetch(`${BASE_URL}/books/best-seller`, {
+    method: "GET",
+  })
+    .then((res) => res.json())
+    .then((data) => data);
+};

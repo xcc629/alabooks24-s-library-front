@@ -17,3 +17,7 @@ export const setLoginCookie = (name, value) => {
 export const getLoginCookie = (name) => {
   return cookie.get(name);
 };
+
+export const removeLoginCookie = (name) => {
+  return cookie.remove(name);
+};

@@ -4,7 +4,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export default function NowBookList({ bookListObj, onClickBook }) {
+export default function NowBookList({ bookData, onClickBook }) {
   const settings = {
     className: "center",
     centerMode: true,
@@ -17,7 +17,7 @@ export default function NowBookList({ bookListObj, onClickBook }) {
     <Wrapper>
       <Title>사람들이 지금 많이 읽고 있는 책</Title>
       <StyledSlider {...settings}>
-        {bookListObj.map((data) => {
+        {bookData.map((data) => {
           return (
             <BooksWrapper key={data.id}>
               <Book key={data.id}>
@@ -66,22 +66,22 @@ const Title = styled.h1`
 
 const StyledSlider = styled(Slider)`
   .slick-list {
-    transform: translate3d(, 0px, 0px);
+    transform: translate3d(0ox, 0px, 0px);
     .slick-track {
       width: 100%;
     }
   }
- {
-    font-size: 2rem;
-    color: black;
-    z-index: 10;
-  }
-  .slick-prev{
+
+  font-size: 2rem;
+  color: black;
+  z-index: 10;
+
+  .slick-prev {
     left: -2.1rem;
   }
 
   .slick-prev,
-  .slick-next{
+  .slick-next {
     top: 39%;
     transform: translate(0, 0);
     z-index: 10;
@@ -90,7 +90,6 @@ const StyledSlider = styled(Slider)`
   .slick-next:before {
     font-size: 2rem;
     color: black;
-  
   }
 `;
 
