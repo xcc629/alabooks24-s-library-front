@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import { getBookInfo, getBestSeller } from "../../apis/books";
 import { getComment } from "../../apis/comment";
-import { postCardtIn, deleteCartOut } from "../../apis/cart";
+import { postCartIn, deleteCartOut } from "../../apis/cart";
 
 import Loading from "../../components/loading/Loading";
 import Nav from "../../components/navs/TopNav";
@@ -65,7 +65,7 @@ function Detail(props) {
   const { bookId, bookInfoObj, bestSellerList, commentList } = props;
 
   const onCartIn = () => {
-    postCardtIn(bookId)
+    postCartIn(bookId)
       .then((data) => {
         if (data.messgae === "카트에 담았습니다") {
           setCartMessage("카트에서 삭제되었습니다.");
@@ -97,8 +97,6 @@ function Detail(props) {
 
   return (
     <section>
-      <Nav />
-      <MainNav />
       {popup && (
         <CartAlert
           cartMessage={cartMessage}

@@ -37,7 +37,7 @@ function BestSellerCard(props) {
   return (
     <CardWrapper onClick={() => goToDetail(id)}>
       <p>{rank + 1}위</p>
-      <p>{title.length >= 10 ? title.slice(0, 10) + "..." : title}</p>
+      <p>{title.length >= 9 ? title.slice(0, 9) + "..." : title}</p>
     </CardWrapper>
   );
 }

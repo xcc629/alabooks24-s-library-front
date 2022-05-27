@@ -1,10 +1,8 @@
 import styled from "styled-components";
 
-function SilverBorderRoundButton({ content }) {
+export default function SilverBorderRoundButton({ content }) {
   return <Button onClick={() => {}}>{content}</Button>;
 }
-
-export default SilverBorderRoundButton;
 
 const Button = styled.button`
   border: 1px solid #a09fab;
