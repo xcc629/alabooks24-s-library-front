@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import React, { useNavigate } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import {
   AiFillCheckCircle,
@@ -7,59 +7,7 @@ import {
   AiOutlineClose,
 } from "react-icons/ai";
 
-function CartAlert({ cartMessage, OnCloseCartMessage }) {
-  const navigate = useNavigate();
-  let isCartOkay = true;
-  if (cartMessage === "로그인이 필요합니다.") {
-    isCartOkay = false;
-  }
-
-  const goToCart = () => {
-    navigate("/cart/");
-  };
-
-  const goToLogin = () => {
-    navigate("/login");
-  };
-
-  return (
-    <CartAlertWrapper isCartIn={isCartOkay}>
-      <CartMessage
-        isCartIn={isCartOkay}
-        marginRignt={"10px"}
-        paddingLeft={"10px"}
-      >
-        {isCartOkay ? (
-          <AiFillCheckCircle style={{ fontSize: 18 }} />
-        ) : (
-          <AiFillExclamationCircle style={{ fontSize: 18 }} />
-        )}
-
-        <span>{cartMessage}</span>
-      </CartMessage>
-      {cartMessage === "카트에 담았습니다." && (
-        <GoTo marginRignt={"160px"} paddingLeft={"5px"} onClick={goToCart}>
-          <span> 카트 가기</span>
-          <AiOutlineDoubleRight style={{ fontSize: 10 }} />
-        </GoTo>
-      )}
-      {!isCartOkay && (
-        <GoTo marginRignt={"160px"} paddingLeft={"5px"} onClick={goToLogin}>
-          <span>로그인으로 이동</span>
-          <AiOutlineDoubleRight style={{ fontSize: 10 }} />
-        </GoTo>
-      )}
-
-      <Xbutton onClick={OnCloseCartMessage}>
-        <AiOutlineClose style={{ marginTop: 3, fontSize: 25 }} />
-      </Xbutton>
-    </CartAlertWrapper>
-  );
-}
-
-export default CartAlert;
-
-const move = keyframes`
+const CartAlertAnimation = keyframes`
 0%{
     transform: translate(-50%, 0vh);
     opacity: 0;
@@ -82,7 +30,7 @@ const move = keyframes`
 }
 `;
 
-const CartAlertWrapper = styled.div`
+const CartAlertStyled = styled.div`
   position: fixed;
   top: 8vh;
   left: 50%;
@@ -90,14 +38,15 @@ const CartAlertWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  animation: ${move} 3s ease;
+  animation: ${CartAlertAnimation} 3s ease;
   border-radius: 0.3rem;
   padding: 10px;
   width: max-content;
   background-color: black;
   font-size: 13px;
 `;
-const CartMessage = styled.div`
+
+const CartMessageWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-right: ${(props) => props.marginRignt};
@@ -110,7 +59,7 @@ const CartMessage = styled.div`
   }
 `;
 
-const GoTo = styled.div`
+const NavigateButtonWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-right: ${(props) => props.marginRignt};
@@ -125,8 +74,61 @@ const GoTo = styled.div`
   }
 `;
 
-const Xbutton = styled.button`
+const CloseButtonWrapper = styled.button`
   border: none;
   background-color: transparent;
   color: gray;
 `;
+
+export default function CartAlert({ cartMessage, OnCloseCartMessage }) {
+  const navigate = useNavigate();
+  let canGoCart = true;
+  if (cartMessage === "로그인이 필요합니다.") {
+    canGoCart = false;
+  }
+
+  return (
+    <CartAlertStyled isCartIn={canGoCart}>
+      <CartMessageWrapper
+        isCartIn={canGoCart}
+        marginRignt={"10px"}
+        paddingLeft={"10px"}
+      >
+        {canGoCart ? (
+          <AiFillCheckCircle style={{ fontSize: 18 }} />
+        ) : (
+          <AiFillExclamationCircle style={{ fontSize: 18 }} />
+        )}
+        <span>{cartMessage}</span>
+      </CartMessageWrapper>
+      {cartMessage === "카트에 담았습니다." && (
+        <NavigateButtonWrapper
+          marginRignt={"160px"}
+          paddingLeft={"5px"}
+          onClick={() => {
+            navigate("/cart/");
+          }}
+        >
+          <span> 카트 가기</span>
+          <AiOutlineDoubleRight style={{ fontSize: 10 }} />
+        </NavigateButtonWrapper>
+      )}
+      {!canGoCart && (
+        <NavigateButtonWrapper
+          marginRignt={"160px"}
+          paddingLeft={"5px"}
+          onClick={() => {
+            navigate("/login");
+          }}
+        >
+          <span>로그인으로 이동</span>
+          <AiOutlineDoubleRight style={{ fontSize: 10 }} />
+        </NavigateButtonWrapper>
+      )}
+
+      <CloseButtonWrapper onClick={OnCloseCartMessage}>
+        <AiOutlineClose style={{ marginTop: 3, fontSize: 25 }} />
+      </CloseButtonWrapper>
+    </CartAlertStyled>
+  );
+}

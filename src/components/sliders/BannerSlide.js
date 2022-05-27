@@ -4,7 +4,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export default function BannerSlide({ bookListObj }) {
+export default function BannerSlide({ bookData }) {
   const settings = {
     dots: false,
     infinite: false,

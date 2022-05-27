@@ -1,10 +1,5 @@
+import React from "react";
 import styled from "styled-components";
-
-function GreenButton({ content, onClick }) {
-  return <Button onClick={onClick}>{content}</Button>;
-}
-
-export default GreenButton;
 
 const Button = styled.div`
   margin-bottom: 10px;
@@ -19,3 +14,7 @@ const Button = styled.div`
   letter-spacing: -0.04em;
   cursor: pointer;
 `;
+
+export default function GreenButton({ content, onClick }) {
+  return <Button onClick={onClick}>{content}</Button>;
+}

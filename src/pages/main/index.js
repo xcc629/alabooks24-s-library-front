@@ -4,23 +4,22 @@ import { useNavigate } from "react-router-dom";
 import { getBookCategory } from "../../apis/books";
 import { UserContext } from "../../context/context";
 
-import TopNav from "../../components/navs/TopNav";
-import MiddleNav from "../../components/navs/MiddleNav";
 import CategoryNav from "../../components/navs/CategoryNav";
 import BannerSlide from "../../components/sliders/BannerSlide";
 import NowBookList from "../../components/sliders/NowBookList";
 import Loading from "../../components/loading/Loading";
 
-function MainDelay() {
+export default function MainDelay() {
   const [isLoading, setIsLoading] = useState(true);
-  const [bookListObj, setBookListObj] = useState(null);
+
+  const [bookData, setBookData] = useState(null);
   const [categoryName, setCategoryName] = useState("romance");
   const me = useContext(UserContext);
 
   useEffect(() => {
     getBookCategory(categoryName)
       .then((data) => {
-        setBookListObj(data);
+        setBookData(data);
         return data.length;
       })
       .then((isComplete) => isComplete && setIsLoading(false));
@@ -29,20 +28,15 @@ function MainDelay() {
   }, [categoryName, me]);
 
   return isLoading ? (
-    <>
-      <Loading />
-    </>
+    <Loading />
   ) : (
-    <>
-      <Main setCategoryName={setCategoryName} bookListObj={bookListObj} />
-    </>
+    <Main setCategoryName={setCategoryName} bookData={bookData} />
   );
 }
 
-function Main(props) {
+function Main({ setCategoryName, bookData }) {
   const navigator = useNavigate();
   const [click, setClick] = useState([true, false, false, false]);
-  const { setCategoryName, bookListObj } = props;
 
   const onClickCategory = (category, index) => {
     setClick(() => {
@@ -60,13 +54,9 @@ function Main(props) {
 
   return (
     <div style={{ position: "relative" }}>
-      <TopNav />
-      <MiddleNav />
       <CategoryNav onClickCategory={onClickCategory} click={click} />
-      <BannerSlide bookListObj={bookListObj} />
-      <NowBookList bookListObj={bookListObj} onClickBook={onClickBook} />
+      <BannerSlide bookData={bookData} />
+      <NowBookList bookData={bookData} onClickBook={onClickBook} />
     </div>
   );
 }
-
-export default MainDelay;
