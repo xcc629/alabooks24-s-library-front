@@ -38,6 +38,9 @@ const CartAlertStyled = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  -o-animation: ${CartAlertAnimation} 3s ease;
+  -moz-animation: ${CartAlertAnimation} 3s ease;
+  -webkit-animation: ${CartAlertAnimation} 3s ease;
   animation: ${CartAlertAnimation} 3s ease;
   border-radius: 0.3rem;
   padding: 10px;
