@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import { getLoginCookie } from "../../utils/cookie";
+import { getLoginCookie } from "../../../utils/cookie";
 
-import BookPop from "./navPop";
+import BookPop from "../../atomic/HeaderCartPop";
 
 import { BsBell, BsCart3 } from "react-icons/bs";
 import { ImBooks } from "react-icons/im";

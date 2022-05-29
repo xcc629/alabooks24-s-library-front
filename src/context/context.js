@@ -31,7 +31,6 @@ export function ContextProvider({ children }) {
     : sessionStorage.getItem("token");
 
   useEffect(() => {
-    console.log("Context", token);
     if (token) {
       getUserInfo(token).then((data) => {
         if (data && !data.message) {

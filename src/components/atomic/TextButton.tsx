@@ -5,16 +5,20 @@ export interface TextButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   themeColor: "Green" | "white";
   content: string;
+  fontSize?: string;
+  padding?: string;
 }
 
 export interface StyledProps {
   themeColor: "Green" | "white";
+  fontSize?: string;
+  padding?: string;
 }
 
 const ButtonStyled = styled.button<StyledProps>`
   margin-bottom: 10px;
   text-align: center;
-  ${({ themeColor }) => {
+  ${({ themeColor, fontSize, padding }) => {
     switch (themeColor) {
       case "Green":
         return css`
@@ -22,10 +26,10 @@ const ButtonStyled = styled.button<StyledProps>`
           text-align: center;
           border: 1px solid rgb(161, 202, 179);
           border-radius: 4px;
-          padding: 16px 20px;
+          padding: ${padding ? padding : "16px 20px"};
           background-color: hsl(166, 41%, 51%);
           color: white;
-          font-size: 16px;
+          font-size: ${fontSize ? fontSize : "16px"};
           font-weight: 600;
           letter-spacing: -0.04em;
           cursor: pointer;
@@ -49,8 +53,12 @@ const ButtonStyled = styled.button<StyledProps>`
 
 export default function TextButton({
   content,
-
+  fontSize,
   ...rest
 }: TextButtonProps) {
-  return <ButtonStyled {...rest}>{content}</ButtonStyled>;
+  return (
+    <ButtonStyled fontSize={fontSize} {...rest}>
+      {content}
+    </ButtonStyled>
+  );
 }

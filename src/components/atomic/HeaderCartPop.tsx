@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import BASE_URL from "../../config";
+import { cartTotalCount } from "../../apis/cart";
 
 const Pop = styled.div`
   position: absolute;
@@ -15,22 +15,11 @@ const Pop = styled.div`
 `;
 
 export default function BookPop() {
-  const [dataOk, setDataOk] = useState(false);
-  const [bookCount, setBookCount] = useState();
+  const [dataOk, setDataOk] = useState<boolean>(false);
+  const [bookCount, setBookCount] = useState<number>(0);
 
   useEffect(() => {
-    fetch(`${BASE_URL}/members/cart/totalCount`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${
-          localStorage.getItem("token")
-            ? localStorage.getItem("token")
-            : sessionStorage.getItem("token")
-        }`,
-      },
-    })
+    cartTotalCount()
       .then((res) => res.json())
       .then((result) => {
         setBookCount(result.totalBooksCountInCart);

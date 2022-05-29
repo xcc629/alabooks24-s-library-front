@@ -54,3 +54,18 @@ export const deleteCartOut = async (bookId) => {
     },
   });
 };
+
+export const cartTotalCount = async () => {
+  return await fetch(`${BASE_URL}/members/cart/totalCount`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${
+        localStorage.getItem("token")
+          ? localStorage.getItem("token")
+          : sessionStorage.getItem("token")
+      }`,
+    },
+  });
+};
