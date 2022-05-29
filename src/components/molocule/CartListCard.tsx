@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import SBRB from "../button/SilverBorderRoundButton";
+
 import TextButton from "../atomic/TextButton";
 import { BaseLayoutProps } from "../types/BaseLayoutProps";
 import { CartItemsProps } from "../types/DataProps";

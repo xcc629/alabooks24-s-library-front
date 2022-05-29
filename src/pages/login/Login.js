@@ -6,7 +6,7 @@ import { setLoginCookie } from "../../utils/cookie";
 import { UserDispatchContext } from "../../context/context";
 import { postLoginData } from "../../apis/user";
 
-import SignNav from "../../components/navs/SignNav";
+import SignNav from "../../components/molocule/navs/SignNav";
 
 import { LoginMain, WarningUp } from "./LoginStyled";
 import { ImWarning } from "react-icons/im";
@@ -65,7 +65,6 @@ function Login() {
           <style>{"body { background-color: rgb(238, 250, 243); }"}</style>
         </Helmet>
       </HelmetProvider>
-      <SignNav />
       <LoginMain>
         <div className="loginForm">
           <input

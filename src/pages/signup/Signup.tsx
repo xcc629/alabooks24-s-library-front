@@ -1,19 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-
 import {
   postSignup,
   duplicateCheckId,
   duplicateCheckEmail,
 } from "../../apis/user";
-
 import { SignupWrapper } from "./Signupstyled";
+import TextButton from "../../components/atomic/TextButton";
 
-import SignNav from "../../components/navs/SignNav";
-import GreenButton from "../../components/button/GreenButton";
-import SignupForm from "./SignupForm";
-
+import SignupForm from "../../components/atomic/SignupForm";
 import { ImWarning } from "react-icons/im";
 
 function Signup() {
@@ -191,7 +187,7 @@ function Signup() {
     }
   };
 
-  const onKeyDownEnter = (e) => {
+  const onKeyDownEnter = (e: KeyboardEvent) => {
     if (e.key === "Enter") {
       onSignup();
     }
@@ -210,7 +206,7 @@ function Signup() {
           <style>{"body { background-color: rgb(238, 250, 243); }"}</style>
         </Helmet>
       </HelmetProvider>
-      <SignNav />
+
       <SignupWrapper>
         <div className="signupIdWap">
           {datas.map((data) => {
@@ -310,7 +306,11 @@ function Signup() {
             {` ${valueError.emailAddressErrMessage}`}
           </span>
         )}
-        <GreenButton content="회원 가입 완료" onClick={onClick} />
+        <TextButton
+          content="회원 가입 완료"
+          onClick={onClick}
+          themeColor={"Green"}
+        />
       </SignupWrapper>
     </div>
   );

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import CartListLayout from "../../components/layout/CartListLayout";
-import CartBuy from "../../components/carts/CartBuy";
+import CartBuy from "../../components/molocule/CartBuy";
 import { deleteCartOut, getCart } from "../../apis/cart";
 import { CartDataProps } from "../../components/types/DataProps";
 import SkeletonCartListLayout from "../../components/layout/SkeletonCartListLayout";
@@ -72,7 +72,6 @@ export default function Cartpage() {
     setChecked(new Array(cartData?.cartItems.length));
   };
   const onChecked = (index: number) => {
-    console.log(index);
     setChecked((prev) => {
       const array = [...prev];
       array[index] = !array[index];

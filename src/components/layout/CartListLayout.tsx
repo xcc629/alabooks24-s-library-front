@@ -15,7 +15,7 @@ export interface CartListProps extends BaseLayoutProps {
   onEachCartOut: (index: number) => void;
 }
 
-const Wrapper = styled.div`
+const CartListStyled = styled.div`
   border: 1px solid silver;
   width: 618px;
   margin-right: 30px;
@@ -48,6 +48,13 @@ const SelectorWrapper = styled.div`
 
 const ButtonWrapper = styled.div``;
 
+const NoListStyled = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 90px 0 150px 0;
+  color: hsl(166, 41%, 51%);
+`;
+
 export default function CartListLayout({
   cartData,
   onTotalChecked,
@@ -57,21 +64,18 @@ export default function CartListLayout({
   onEachCartOut,
 }: CartListProps) {
   return (
-    <Wrapper>
-      {cartData.memberId && cartData.cartItems.length && (
-        <SelectorWrapper>
-          <label onClick={onTotalChecked}>
-            {totalChecked ? <AiFillCheckSquare /> : <AiOutlineCheckSquare />}
-            <span>전체선택</span>
-          </label>
-          <ButtonWrapper>
-            <TextButton content="선택 위시리스트로 이동" themeColor={"white"} />
-            <TextButton content="선택 삭제" themeColor={"white"} />
-          </ButtonWrapper>
-        </SelectorWrapper>
-      )}
-      {cartData.memberId &&
-        cartData.cartItems.length &&
+    <CartListStyled>
+      <SelectorWrapper>
+        <label onClick={onTotalChecked}>
+          {totalChecked ? <AiFillCheckSquare /> : <AiOutlineCheckSquare />}
+          <span>전체선택</span>
+        </label>
+        <ButtonWrapper>
+          <TextButton content="선택 위시리스트로 이동" themeColor={"white"} />
+          <TextButton content="선택 삭제" themeColor={"white"} />
+        </ButtonWrapper>
+      </SelectorWrapper>
+      {cartData.totalCount ? (
         cartData.cartItems.map((data, index) => (
           <CartListCard
             key={index}
@@ -83,7 +87,10 @@ export default function CartListLayout({
             onChecked={onChecked}
             onEachCartOut={onEachCartOut}
           />
-        ))}
-    </Wrapper>
+        ))
+      ) : (
+        <NoListStyled>장바구니에 책이 없습니다!</NoListStyled>
+      )}
+    </CartListStyled>
   );
 }
