@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { getLoginCookie, removeLoginCookie } from "../../utils/cookie";
+import { getLoginCookie, removeLoginCookie } from "../../../utils/cookie";
 import styled, { css } from "styled-components";
 
 const HeaderStyled = styled.section`
@@ -79,14 +79,14 @@ export default function TopNav() {
           <LiWrapper
             canSelect={isLogin ? false : true}
             gapRight={15}
-            onClick={() => (isLogin ? null : handleNavigate("/signup"))}
+            onClick={() => (isLogin ? null : handleNavigate("/account/signup"))}
           >
             {isLogin ? "캐시충전" : "회원가입"}
           </LiWrapper>
           <LiWrapper
             canSelect={true}
             onClick={() =>
-              isLogin ? onClickLogout() : handleNavigate("/login")
+              isLogin ? onClickLogout() : handleNavigate("/account/login")
             }
           >
             {isLogin ? "로그아웃" : "로그인"}

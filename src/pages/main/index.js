@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { getBookCategory } from "../../apis/books";
 import { UserContext } from "../../context/context";
 
-import CategoryNav from "../../components/navs/CategoryNav";
+import CategoryNav from "../../components/molocule/navs/CategoryNav";
 import BannerSlide from "../../components/sliders/BannerSlide";
 import NowBookList from "../../components/sliders/NowBookList";
-import Loading from "../../components/loading/Loading";
+import Loading from "../../components/molocule/Loading";
 
 export default function MainDelay() {
   const [isLoading, setIsLoading] = useState(true);
@@ -23,8 +23,6 @@ export default function MainDelay() {
         return data.length;
       })
       .then((isComplete) => isComplete && setIsLoading(false));
-
-    console.log(me);
   }, [categoryName, me]);
 
   return isLoading ? (

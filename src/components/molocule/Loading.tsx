@@ -1,18 +1,6 @@
 import styled, { keyframes } from "styled-components";
-
 import { theme } from "../../styles/theme";
-
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-
-function Loading() {
-  return (
-    <LoadingWrapper>
-      <AiOutlineLoading3Quarters />
-    </LoadingWrapper>
-  );
-}
-
-export default Loading;
 
 const turnLoading = keyframes`
 0%{
@@ -37,3 +25,11 @@ const LoadingWrapper = styled.div`
     overflow: hidden;
   }
 `;
+
+export default function Loading() {
+  return (
+    <LoadingWrapper>
+      <AiOutlineLoading3Quarters />
+    </LoadingWrapper>
+  );
+}
