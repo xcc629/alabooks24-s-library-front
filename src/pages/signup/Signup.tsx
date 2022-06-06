@@ -28,7 +28,7 @@ function Signup() {
   });
 
   const goToLogin = () => {
-    navigate("/login");
+    navigate("/account/login");
   };
 
   const totalValidation = () => {

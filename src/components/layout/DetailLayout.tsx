@@ -1,44 +1,24 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { postCartIn, deleteCartOut } from "../../apis/cart";
-import BookInfo from "../../pages/detail/BookMainInfo";
-import BookDetailInfo from "../../pages/detail/BookDetailInfo";
-import BestSeller from "../../pages/detail/BestSeller";
+import BookInfo from "../molocule/BookMainInfo";
+import BookDetailInfo from "../molocule/BookDetailInfo";
+import BestSeller from "../molocule/BestSeller";
 import CommentLayout from "../../components/layout/CommentLayout";
 import CartAlert from "../../components/molocule/CartAlert";
 import { BaseLayoutProps } from "../types/BaseLayoutProps";
-import {
-  BestSellerItemProps,
-  BookInfoProps,
-  CommentListProps,
-} from "../types/DataProps";
+import { BestSellerItemProps, BookInfoProps } from "../types/DataProps";
 
 export interface DetailLayoutProps extends BaseLayoutProps {
   bookId: string;
   bookInfoObj: BookInfoProps;
   bestSellerList: BestSellerItemProps[];
-  commentList: CommentListProps;
 }
-
-const DetailMain = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 5px;
-
-  .bookTotalInfoWrap {
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
-    padding-top: 2%;
-    padding-left: 40px;
-  }
-`;
 
 export default function DetailLayout({
   bookId,
   bookInfoObj,
   bestSellerList,
-  commentList,
 }: DetailLayoutProps) {
   const [cartMessage, setCartMessage] = useState<string>("");
   const [popup, setPopup] = useState<Boolean>(false);
@@ -98,7 +78,7 @@ export default function DetailLayout({
             isbn={bookInfoObj.isbn}
             publicationDate={bookInfoObj.publicationDate}
           />
-          <CommentLayout bookId={bookInfoObj.id} commentList={commentList} />
+          <CommentLayout bookId={bookInfoObj.id} />
         </main>
         <aside style={{ width: "15%" }}>
           <BestSeller bestSellerList={bestSellerList} />
@@ -107,3 +87,17 @@ export default function DetailLayout({
     </section>
   );
 }
+
+const DetailMain = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+
+  .bookTotalInfoWrap {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding-top: 2%;
+    padding-left: 40px;
+  }
+`;
