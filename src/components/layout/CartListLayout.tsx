@@ -15,46 +15,6 @@ export interface CartListProps extends BaseLayoutProps {
   onEachCartOut: (index: number) => void;
 }
 
-const CartListStyled = styled.div`
-  border: 1px solid silver;
-  width: 618px;
-  margin-right: 30px;
-`;
-
-const SelectorWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid silver;
-
-  font-size: 14px;
-  button:first-child {
-    margin-right: 10px;
-  }
-  span {
-    margin-left: 10px;
-  }
-  label {
-    display: flex;
-    align-items: center;
-  }
-  svg {
-    font-size: 24px;
-    color: hsl(166, 41%, 51%);
-  }
-`;
-
-const ButtonWrapper = styled.div``;
-
-const NoListStyled = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 90px 0 150px 0;
-  color: hsl(166, 41%, 51%);
-`;
-
 export default function CartListLayout({
   cartData,
   onTotalChecked,
@@ -94,3 +54,43 @@ export default function CartListLayout({
     </CartListStyled>
   );
 }
+
+const CartListStyled = styled.div`
+  border: 1px solid silver;
+  width: 618px;
+  margin-right: 30px;
+`;
+
+const SelectorWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid silver;
+
+  font-size: 14px;
+  button:first-child {
+    margin-right: 10px;
+  }
+  span {
+    margin-left: 10px;
+  }
+  label {
+    display: flex;
+    align-items: center;
+  }
+  svg {
+    font-size: 24px;
+    color: hsl(166, 41%, 51%);
+  }
+`;
+
+const ButtonWrapper = styled.div``;
+
+const NoListStyled = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 90px 0 150px 0;
+  color: hsl(166, 41%, 51%);
+`;

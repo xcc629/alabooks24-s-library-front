@@ -1,53 +1,62 @@
+import * as React from "react";
 import { useState } from "react";
 import styled, { css } from "styled-components";
 import { BaseLayoutProps } from "../types/BaseLayoutProps";
 
 export interface CommentStarInputProps extends BaseLayoutProps {
   setStarValue: React.Dispatch<React.SetStateAction<number>>;
+  setStarNumberForSign: React.Dispatch<React.SetStateAction<number>>;
+  setisStarClicked: React.Dispatch<React.SetStateAction<boolean>>;
   isLogin: boolean;
+  isStarClicked: boolean;
 }
 
 export interface StyledStarProps {
   el: boolean;
 }
 
-const StarWrap = styled.div<StyledStarProps>`
+const StarStyled = styled.div<StyledStarProps>`
   div {
-    width: 50px;
+    width: 80px;
     height: 50px;
+
     ${({ el }) =>
       el
         ? css`
             background-image: url(https://upload.wikimedia.org/wikipedia/commons/f/f9/Five_Pointed_Star_Solid.svg);
             background-position: center;
-            background-size: cover;
+            background-size: contain;
             background-repeat: no-repeat;
           `
         : css`
             background-image: url(https://upload.wikimedia.org/wikipedia/commons/1/18/Five-pointed_star.svg);
             background-position: center;
-            background-size: cover;
+            background-size: contain;
             background-repeat: no-repeat;
           `}
   }
 `;
 
-export default function CommentStarInput({
+function CommentStarInput({
   setStarValue,
+  setStarNumberForSign,
+  setisStarClicked,
   isLogin,
+  isStarClicked,
   ...rest
 }: CommentStarInputProps) {
-  const [isStarClicked, setisStarClicked] = useState<boolean>(false);
   const [starArray, setStarArray] = useState<boolean[]>(
     new Array(5).fill(false)
   );
 
-  const blockInput = () => {
-    if (!isLogin) setStarArray(new Array(5).fill(false));
+  const resetValues = () => {
+    setStarArray(new Array(5).fill(false));
+    setStarNumberForSign(0);
+    setStarValue(0);
   };
 
   const hoverStar = (index: number) => {
-    !isStarClicked &&
+    if (!isStarClicked) {
       setStarArray((prev) => {
         let newArray = [...prev];
         newArray.forEach((el, idx) => {
@@ -57,24 +66,30 @@ export default function CommentStarInput({
         });
         return newArray;
       });
+    }
+    setStarNumberForSign(index + 1);
   };
 
-  const clearStar = () => {
-    blockInput();
-    !isStarClicked && setStarArray(new Array(5).fill(false));
+  const leaveStar = () => {
+    if (isStarClicked) setStarNumberForSign(0);
+    if (!isStarClicked) resetValues();
   };
 
   const controlSaveStar = (index: number) => {
-    if (starArray[index] && !starArray[index + 1])
-      setisStarClicked((prev) => !prev);
-    if (!isStarClicked && starArray) setStarValue(index + 1);
+    if (isLogin) {
+      if (starArray[index] && !starArray[index + 1])
+        setisStarClicked((prev) => !prev);
+      if (!isStarClicked && starArray) setStarValue(index + 1);
+    }
   };
+
   return (
     <>
       {starArray.map((el, index) => (
-        <StarWrap
+        <StarStyled
+          {...rest}
           onMouseEnter={() => hoverStar(index)}
-          onMouseLeave={clearStar}
+          onMouseLeave={leaveStar}
           onClick={() => controlSaveStar(index)}
           key={`star${index}`}
           el={el}
@@ -82,8 +97,10 @@ export default function CommentStarInput({
           <label htmlFor="star1">
             <div>{}</div>
           </label>
-        </StarWrap>
+        </StarStyled>
       ))}
     </>
   );
 }
+
+export default React.memo(CommentStarInput);

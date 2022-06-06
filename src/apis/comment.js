@@ -1,4 +1,5 @@
 import BASE_URL from "../config";
+import { getLoginCookie } from "../utils/cookie";
 
 export const getComment = async (bookId) => {
   return await fetch(`${BASE_URL}/comments/${bookId}`, {
@@ -9,13 +10,20 @@ export const getComment = async (bookId) => {
 };
 
 export const postComment = async (bookId, comment) => {
-  return await fetch(`${BASE_URL}/comments/${bookId}`, {
+  const res = await fetch(`${BASE_URL}/comments/${bookId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${
+        getLoginCookie("token")
+          ? getLoginCookie("token")
+          : sessionStorage.getItem("token")
+      }`,
     },
     body: JSON.stringify({ ...comment }),
   });
+
+  return res;
 };
 
 export const patchComment = async (bookId, commentId, comment) => {

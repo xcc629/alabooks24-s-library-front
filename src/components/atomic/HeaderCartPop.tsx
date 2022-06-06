@@ -15,6 +15,7 @@ const Pop = styled.div`
 `;
 
 export default function BookPop() {
+  const [dataOk, setDataOk] = useState<boolean>(false);
   const [bookCount, setBookCount] = useState<number>(0);
 
   useEffect(() => {
@@ -22,8 +23,9 @@ export default function BookPop() {
       .then((res) => res.json())
       .then((result) => {
         setBookCount(result.totalBooksCountInCart);
+        setDataOk(true);
       });
   }, []);
 
-  return <Pop>{bookCount}</Pop>;
+  return dataOk && <Pop>{bookCount}</Pop>;
 }

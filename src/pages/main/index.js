@@ -5,8 +5,8 @@ import { getBookCategory } from "../../apis/books";
 import { UserContext } from "../../context/context";
 
 import CategoryNav from "../../components/molocule/navs/CategoryNav";
-import BannerSlide from "../../components/sliders/BannerSlide";
-import NowBookList from "../../components/sliders/NowBookList";
+import BannerSlide from "../../components/molocule/sliders/BannerSlide";
+import NowBookList from "../../components/molocule/sliders/NowBookList";
 import Loading from "../../components/molocule/Loading";
 
 export default function MainDelay() {
