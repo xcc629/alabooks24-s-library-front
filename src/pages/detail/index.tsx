@@ -1,13 +1,12 @@
 import { useState, useLayoutEffect } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getBookInfo, getBestSeller } from "../../apis/books";
-import { getComment } from "../../apis/comment";
+
 import Loading from "../../components/molocule/Loading";
 import DetailLayout from "../../components/layout/DetailLayout";
 import {
   BestSellerItemProps,
   BookInfoProps,
-  CommentListProps,
 } from "../../components/types/DataProps";
 
 export default function Detail() {
@@ -17,12 +16,12 @@ export default function Detail() {
     []
   );
   const [bookInfoObj, setbookInfoObj] = useState<BookInfoProps>();
-  const [commentList, setCommentList] = useState<CommentListProps>();
+
   const [isLoading, setisLoading] = useState<boolean>(true);
 
   useLayoutEffect(() => {
     getBestSeller().then((data) => setBestSellerList(data));
-    getComment(bookId).then((data) => setCommentList(data));
+
     getBookInfo(bookId)
       .then((data) => {
         setbookInfoObj(data);
@@ -43,12 +42,11 @@ export default function Detail() {
 
   return isLoading ? (
     <Loading />
-  ) : bookId && bookInfoObj && commentList ? (
+  ) : bookId && bookInfoObj ? (
     <DetailLayout
       bookId={bookId}
       bookInfoObj={bookInfoObj}
       bestSellerList={bestSellerList}
-      commentList={commentList}
     />
   ) : (
     <div>없습니다</div>

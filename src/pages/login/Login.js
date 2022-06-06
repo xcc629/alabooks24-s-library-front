@@ -23,7 +23,7 @@ function Login() {
     navigate("/");
   };
   const goToSignup = () => {
-    navigate("/signup");
+    navigate("/account/signup");
   };
 
   const enterKey = (e) => {

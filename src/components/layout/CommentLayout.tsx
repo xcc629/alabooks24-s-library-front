@@ -1,15 +1,42 @@
 import * as React from "react";
 import styled from "styled-components";
 import CommentList from "../molocule/CommentList";
-import CommentInput from "../molocule/CommentInput";
+import CommentInputLayout from "./CommentInputLayout";
 import { BaseLayoutProps } from "../types/BaseLayoutProps";
-import { CommentsProps } from "../types/DataProps";
+import { useEffect, useState } from "react";
+import { getComment } from "../../apis/comment";
 
 export interface CommentLayoutProps extends BaseLayoutProps {
   bookId: number;
-  commentList: { totalCount: number; comments: CommentsProps[] };
 }
 
+export default function CommentLayout({ bookId, ...rest }: CommentLayoutProps) {
+  const [needGetPostList, setNeedGetPostList] = useState<boolean>(false);
+  const [commentList, setCommentList] = useState({
+    totalCount: 0,
+    comments: [],
+  });
+
+  useEffect(() => {
+    const getCommentList = async () => {
+      let data = await getComment(bookId);
+      setCommentList(data);
+    };
+
+    getCommentList();
+  }, [bookId, needGetPostList]);
+
+  return (
+    <CommentLayoutStyled {...rest}>
+      <CommentLayoutWrapper>리뷰</CommentLayoutWrapper>
+      <CommentInputLayout
+        bookId={bookId}
+        setNeedGetPostList={setNeedGetPostList}
+      />
+      <CommentList commentList={commentList} />
+    </CommentLayoutStyled>
+  );
+}
 const CommentLayoutStyled = styled.div`
   padding-top: 50px;
 `;
@@ -21,17 +48,3 @@ const CommentLayoutWrapper = styled.div`
   font-size: 19px;
   font-weight: 600;
 `;
-
-export default function CommentLayout({
-  bookId,
-  commentList,
-  ...rest
-}: CommentLayoutProps) {
-  return (
-    <CommentLayoutStyled {...rest}>
-      <CommentLayoutWrapper>리뷰</CommentLayoutWrapper>
-      <CommentInput bookId={bookId} />
-      <CommentList commentList={commentList} />
-    </CommentLayoutStyled>
-  );
-}

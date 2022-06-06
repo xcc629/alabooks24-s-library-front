@@ -1,7 +1,5 @@
-import { transelation } from "../../utils/translateCategory";
-
+import { transelateCategory } from "../../utils/makeString";
 import { CartButton, BookInfoContentWrap } from "./BookMainInfostyled";
-
 import { ImCart } from "react-icons/im";
 import { IoIosArrowForward } from "react-icons/io";
 
@@ -20,7 +18,7 @@ function BookInfo(prop) {
           <li className="centerLi">
             <IoIosArrowForward />
           </li>
-          <li>{transelation(prop.category)}</li>
+          <li>{transelateCategory(prop.category)}</li>
         </ul>
         <h1 className="bookTitle">{prop.title}</h1>
         <div className="authorAndPublisherWrap">
