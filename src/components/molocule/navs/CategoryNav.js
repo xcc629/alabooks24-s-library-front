@@ -1,9 +1,9 @@
 import { AiOutlineMenu } from "react-icons/ai";
 import styled from "styled-components";
 
-export default function CategoryNav({ onClickCategory, click }) {
+export default function CategoryNav({ onClickCategory, click, ...rest }) {
   return (
-    <Wrapper>
+    <Wrapper {...rest}>
       <CategoryWrapper>
         <Category
           onClick={() => onClickCategory("romance", 0)}

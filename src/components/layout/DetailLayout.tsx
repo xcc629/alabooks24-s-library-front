@@ -5,7 +5,7 @@ import BookInfo from "../molocule/BookMainInfo";
 import BookDetailInfo from "../molocule/BookDetailInfo";
 import BestSeller from "../molocule/BestSeller";
 import CommentLayout from "../../components/layout/CommentLayout";
-import CartAlert from "../../components/molocule/CartAlert";
+import FallMessageAlert from "../atomic/FallMessageAlert";
 import { BaseLayoutProps } from "../types/BaseLayoutProps";
 import { BestSellerItemProps, BookInfoProps } from "../types/DataProps";
 
@@ -21,47 +21,25 @@ export default function DetailLayout({
   bestSellerList,
 }: DetailLayoutProps) {
   const [cartMessage, setCartMessage] = useState<string>("");
-  const [popup, setPopup] = useState<Boolean>(false);
 
   const onCartIn = () => {
-    postCartIn(bookId)
-      .then((data) => {
-        if (data.messgae === "카트에 담았습니다") {
-          setCartMessage("카트에서 삭제되었습니다.");
-        }
-        if (data.message === "이미 카트에 존재하는 책입니다.") {
-          onCartOut();
-          setCartMessage("카트에서 삭제되었습니다.");
-        } else {
-          setCartMessage(data.message);
-        }
-      })
-      .then(OnCartMessage);
+    postCartIn(bookId).then((data) => {
+      console.log(data);
+      if (data.message === "이미 카트에 존재하는 책입니다.") {
+        onCartOut();
+        setCartMessage("카트에서 삭제되었습니다.");
+      } else {
+        setCartMessage(data.message);
+      }
+    });
   };
 
   const onCartOut = () => {
     deleteCartOut(bookId);
   };
 
-  const OnCartMessage = () => {
-    setPopup(true);
-    setTimeout(function () {
-      setPopup(false);
-    }, 3000);
-  };
-
-  const OnCloseCartMessage = () => {
-    setPopup(false);
-  };
-
   return (
     <section>
-      {popup && (
-        <CartAlert
-          cartMessage={cartMessage}
-          OnCloseCartMessage={OnCloseCartMessage}
-        />
-      )}
       <DetailMain>
         <main className="bookTotalInfoWrap">
           <BookInfo

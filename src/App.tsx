@@ -6,7 +6,7 @@ import {
   Outlet,
   Navigate,
 } from "react-router-dom";
-import { ContextProvider } from "./context/context";
+import { Provider } from "mobx-react";
 
 import TopNav from "./components/molocule/navs/TopNav";
 import MiddleNav from "./components/molocule/navs/MiddleNav";
@@ -16,11 +16,16 @@ import Signup from "./pages/signup/Signup";
 import Detail from "./pages/detail";
 import Cartpage from "./pages/cart";
 import SignNav from "./components/molocule/navs/SignNav";
+import Test from "./pages/test";
+import FallMessageAlert from "./components/atomic/FallMessageAlert";
+import ModalStore from "./stores/modalStore";
+
+const modalStore = new ModalStore();
 
 function Router() {
   return (
     <BrowserRouter>
-      <ContextProvider>
+      <Provider modalStore={modalStore}>
         <Routes>
           <Route path="/" element={<Navigate to="/books" />} />
           <Route path="/account/*" element={<SignupLayout />} />
@@ -30,9 +35,12 @@ function Router() {
             <Route path="/cart" element={<Cartpage />} />
           </Route>
 
+          <Route path="/test" element={<Test />} />
+
           <Route path="*" element={<Navigate to="/not-found" />} />
         </Routes>
-      </ContextProvider>
+        <FallMessageAlert />
+      </Provider>
     </BrowserRouter>
   );
 }

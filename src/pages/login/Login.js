@@ -1,12 +1,9 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 
 import { setLoginCookie } from "../../utils/cookie";
-import { UserDispatchContext } from "../../context/context";
 import { postLoginData } from "../../apis/user";
-
-import SignNav from "../../components/molocule/navs/SignNav";
 
 import { LoginMain, WarningUp } from "./LoginStyled";
 import { ImWarning } from "react-icons/im";
@@ -17,7 +14,6 @@ function Login() {
   const [keepLogin, setKeepLogin] = useState(false);
   const [requestMessage, setrequestMessage] = useState("");
   const navigate = useNavigate();
-  const dispatch = useContext(UserDispatchContext);
 
   const goToMain = () => {
     navigate("/");
