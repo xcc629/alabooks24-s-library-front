@@ -1,8 +1,7 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { getBookCategory } from "../../apis/books";
-import { UserContext } from "../../context/context";
 
 import CategoryNav from "../../components/molocule/navs/CategoryNav";
 import BannerSlide from "../../components/molocule/sliders/BannerSlide";
@@ -14,7 +13,6 @@ export default function MainDelay() {
 
   const [bookData, setBookData] = useState(null);
   const [categoryName, setCategoryName] = useState("romance");
-  const me = useContext(UserContext);
 
   useEffect(() => {
     getBookCategory(categoryName)
@@ -23,7 +21,7 @@ export default function MainDelay() {
         return data.length;
       })
       .then((isComplete) => isComplete && setIsLoading(false));
-  }, [categoryName, me]);
+  }, [categoryName]);
 
   return isLoading ? (
     <Loading />
