@@ -28,7 +28,7 @@ export default function NowBookList({ bookData, onClickBook }) {
                 >
                   <Cover src={data.imgUrl} alt="booksCover" />
                 </CoverWrapper>
-                <Rank>{}</Rank>
+
                 <InfoWrapper>
                   <InfoTitle
                     onClick={() => {
@@ -104,15 +104,17 @@ const Book = styled.div`
 `;
 
 const CoverWrapper = styled.div`
+  display: flex;
+  align-items: flex-end;
+  border-radius: 0.5rem;
   width: 180px;
+  height: 285px;
 `;
 
 const Cover = styled.img`
   border-radius: 0.5rem;
   width: 100%;
 `;
-
-const Rank = styled.div``;
 
 const InfoWrapper = styled.div`
   width: 200px;

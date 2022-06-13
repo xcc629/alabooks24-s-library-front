@@ -5,9 +5,10 @@ import BookInfo from "../molocule/BookMainInfo";
 import BookDetailInfo from "../molocule/BookDetailInfo";
 import BestSeller from "../molocule/BestSeller";
 import CommentLayout from "../../components/layout/CommentLayout";
-import FallMessageAlert from "../atomic/FallMessageAlert";
+
 import { BaseLayoutProps } from "../types/BaseLayoutProps";
 import { BestSellerItemProps, BookInfoProps } from "../types/DataProps";
+import UseStores from "../../stores/useStore";
 
 export interface DetailLayoutProps extends BaseLayoutProps {
   bookId: string;
@@ -20,11 +21,11 @@ export default function DetailLayout({
   bookInfoObj,
   bestSellerList,
 }: DetailLayoutProps) {
+  const { modalStore } = UseStores();
   const [cartMessage, setCartMessage] = useState<string>("");
 
   const onCartIn = () => {
     postCartIn(bookId).then((data) => {
-      console.log(data);
       if (data.message === "이미 카트에 존재하는 책입니다.") {
         onCartOut();
         setCartMessage("카트에서 삭제되었습니다.");
