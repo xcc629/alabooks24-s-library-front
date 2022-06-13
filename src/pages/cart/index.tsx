@@ -33,7 +33,7 @@ export default function Cartpage() {
   const [isSkeletonOn, setisSkeletonOn] = useState<boolean>(true);
   const [cartData, setCartData] = useState<CartDataProps>();
   const [changeLength, setChangeLength] = useState<number>(0);
-  const [totalChecked, setTotalChecked] = useState<boolean>(false);
+  const [totalChecked, setTotalChecked] = useState<boolean>(true);
   const [checked, setChecked] = useState<boolean[]>([]);
 
   useEffect(() => {
@@ -57,9 +57,13 @@ export default function Cartpage() {
 
   const onEachCartOut = (index: number) => {
     cartData?.cartItems &&
-      deleteCartOut(cartData.cartItems[index].bookId).then(() => {
-        setChangeLength(cartData.cartItems.length);
-      });
+      deleteCartOut(cartData.cartItems[index].bookId)
+        .then(() => {
+          setChangeLength(cartData.cartItems.length);
+        })
+        .then(() => {
+          getCart().then((result) => setCartData(result));
+        });
   };
 
   const onTotalChecked = () => {

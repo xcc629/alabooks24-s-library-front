@@ -1,31 +1,35 @@
 import { AiOutlineMenu } from "react-icons/ai";
 import styled from "styled-components";
 
-export default function CategoryNav({ onClickCategory, click, ...rest }) {
+export default function CategoryNav({
+  onClickCategory,
+  categoryName,
+  ...rest
+}) {
   return (
     <Wrapper {...rest}>
       <CategoryWrapper>
         <Category
-          onClick={() => onClickCategory("romance", 0)}
-          color={`${click[0]}`}
+          onClick={() => onClickCategory("romance")}
+          color={`${categoryName === "romance"}`}
         >
           로맨스
         </Category>
         <Category
-          onClick={() => onClickCategory("romance-fantasy", 1)}
-          color={`${click[1]}`}
+          onClick={() => onClickCategory("romance-fantasy")}
+          color={`${categoryName === "romance-fantasy"}`}
         >
           로판
         </Category>
         <Category
-          onClick={() => onClickCategory("fantasy", 2)}
-          color={`${click[2]}`}
+          onClick={() => onClickCategory("fantasy")}
+          color={`${categoryName === "fantasy"}`}
         >
           판타지
         </Category>
         <Category
-          onClick={() => onClickCategory("bl", 3)}
-          color={`${click[3]}`}
+          onClick={() => onClickCategory("bl")}
+          color={`${categoryName === "bl"}`}
         >
           BL
         </Category>
