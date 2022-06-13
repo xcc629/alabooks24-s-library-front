@@ -42,6 +42,7 @@ function FallMessageAlert() {
       setTimeout(() => {
         modalStore.closeModal();
       }, 3000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   return isOpen ? (

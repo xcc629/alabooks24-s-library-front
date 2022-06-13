@@ -27,7 +27,7 @@ function Router() {
     <BrowserRouter>
       <Provider modalStore={modalStore}>
         <Routes>
-          <Route path="/" element={<Navigate to="/books" />} />
+          <Route path="/" element={<Navigate to="/books?category=romance" />} />
           <Route path="/account/*" element={<SignupLayout />} />
           <Route path="/" element={<Layout />}>
             <Route path="/books" element={<Main />} />
