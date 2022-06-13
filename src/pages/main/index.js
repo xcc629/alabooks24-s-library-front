@@ -22,6 +22,10 @@ export default function MainDelay() {
   const [categoryName, setCategoryName] = useState(selectCategorySearch());
 
   useEffect(() => {
+    setCategoryName(selectCategorySearch());
+  }, [search]);
+
+  useEffect(() => {
     const renderCategory = async () => {
       try {
         const data = await getBookCategory(categoryName);
