@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { postCartIn, deleteCartOut } from "../../apis/cart";
 import BookInfo from "../molocule/BookMainInfo";
@@ -14,25 +13,46 @@ export interface DetailLayoutProps extends BaseLayoutProps {
   bookId: string;
   bookInfoObj: BookInfoProps;
   bestSellerList: BestSellerItemProps[];
+  isInMyCart: boolean;
+  setIsInMyCart: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function DetailLayout({
   bookId,
   bookInfoObj,
   bestSellerList,
+  isInMyCart,
+  setIsInMyCart,
 }: DetailLayoutProps) {
   const { modalStore } = UseStores();
-  const [cartMessage, setCartMessage] = useState<string>("");
 
-  const onCartIn = () => {
-    postCartIn(bookId).then((data) => {
+  const onCartIn = async () => {
+    try {
+      const data = await postCartIn(bookId);
+
+      if (!data.message) throw new Error("NO MESSAGE");
+
+      if (data.message === "카트에 담았습니다.") {
+        modalStore.openModal(data.message, "pass", "카트보기", "/cart");
+        setIsInMyCart(true);
+      }
+
       if (data.message === "이미 카트에 존재하는 책입니다.") {
         onCartOut();
-        setCartMessage("카트에서 삭제되었습니다.");
-      } else {
-        setCartMessage(data.message);
+        modalStore.openModal("카트에서 삭제되었습니다.", "pass");
+        setIsInMyCart(false);
       }
-    });
+
+      if (data.message === "로그인이 필요합니다.")
+        modalStore.openModal(
+          data.message,
+          "dined",
+          "로그인으로",
+          "/account/login"
+        );
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const onCartOut = () => {
@@ -52,6 +72,7 @@ export default function DetailLayout({
             publisher={bookInfoObj.publisher}
             title={bookInfoObj.title}
             onCartIn={onCartIn}
+            isInMyCart={isInMyCart}
           />
           <BookDetailInfo
             isbn={bookInfoObj.isbn}

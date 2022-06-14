@@ -59,13 +59,34 @@ export const cartTotalCount = async () => {
   return await fetch(`${BASE_URL}/members/cart/totalCount`, {
     method: "GET",
     headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
       Authorization: `Bearer ${
-        localStorage.getItem("token")
-          ? localStorage.getItem("token")
+        getLoginCookie("token")
+          ? getLoginCookie("token")
           : sessionStorage.getItem("token")
       }`,
     },
   });
+};
+
+export const checkIsInMyCart = async (bookId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/members/cart/check/${bookId}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${
+          getLoginCookie("token")
+            ? getLoginCookie("token")
+            : sessionStorage.getItem("token")
+        }`,
+      },
+    });
+    const result = await res.json();
+
+    if (!res.ok) {
+      return { exist: false };
+    }
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
 };
