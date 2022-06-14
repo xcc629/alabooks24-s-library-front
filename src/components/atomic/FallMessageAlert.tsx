@@ -57,6 +57,7 @@ function FallMessageAlert() {
         {navigateModalAddress && navigatemodalMessage && (
           <NavigateButtonWrapper
             onClick={() => {
+              modalStore.closeModal();
               navigate(navigateModalAddress);
             }}
           >
@@ -68,7 +69,7 @@ function FallMessageAlert() {
 
       <CloseButtonWrapper
         onClick={() => {
-          setOpen(false);
+          modalStore.closeModal();
         }}
       >
         <AiOutlineClose style={{ marginTop: 3, fontSize: 25 }} />

@@ -6,9 +6,55 @@ import { getLoginCookie } from "../../../utils/cookie";
 
 import BookPop from "../../atomic/HeaderCartPop";
 
-import { BsBell, BsCart3 } from "react-icons/bs";
-import { ImBooks } from "react-icons/im";
-import { AiOutlineUser } from "react-icons/ai";
+import { BsCart3 } from "react-icons/bs";
+
+export default function MiddleNav() {
+  const navigate = useNavigate();
+  const [isLogin, setIsLogin] = useState(
+    Boolean(getLoginCookie("token")) || Boolean(sessionStorage.getItem("token"))
+  );
+
+  useEffect(() => {
+    setIsLogin(
+      Boolean(getLoginCookie("token")) ||
+        Boolean(sessionStorage.getItem("token"))
+    );
+  }, [
+    Boolean(getLoginCookie("token")) ||
+      Boolean(sessionStorage.getItem("token")),
+  ]);
+
+  const onVaildGoCart = () => {
+    isLogin ? navigatePath("/cart") : alert("로그인이 필요합니다");
+  };
+
+  const navigatePath = (path) => {
+    navigate(path);
+  };
+
+  return (
+    <MiddleNavStyled>
+      <LogoWrapper
+        onClick={() => {
+          navigatePath("/");
+        }}
+      >
+        ALA
+      </LogoWrapper>
+      <InputWrapper>
+        <li>
+          <SearchWrapper type="text" />
+        </li>
+        <li>
+          <ButtonWrapper onClick={onVaildGoCart}>
+            {isLogin && <BookPop />}
+            <BsCart3 style={{ fontSize: 25 }} />
+          </ButtonWrapper>
+        </li>
+      </InputWrapper>
+    </MiddleNavStyled>
+  );
+}
 
 const MiddleNavStyled = styled.div`
   position: relative;
@@ -55,66 +101,3 @@ const ButtonWrapper = styled.button`
   width: max-content;
   background-color: transparent;
 `;
-
-export default function MiddleNav() {
-  const navigate = useNavigate();
-  const [isLogin, setIsLogin] = useState(
-    Boolean(getLoginCookie("token")) || Boolean(sessionStorage.getItem("token"))
-  );
-
-  useEffect(() => {
-    setIsLogin(
-      Boolean(getLoginCookie("token")) ||
-        Boolean(sessionStorage.getItem("token"))
-    );
-  }, [
-    Boolean(getLoginCookie("token")) ||
-      Boolean(sessionStorage.getItem("token")),
-  ]);
-
-  const onVaildGoCart = () => {
-    isLogin ? navigatePath("/cart") : alert("로그인이 필요합니다");
-  };
-
-  const navigatePath = (path) => {
-    navigate(path);
-  };
-
-  return (
-    <MiddleNavStyled>
-      <LogoWrapper
-        onClick={() => {
-          navigatePath("/");
-        }}
-      >
-        ALA
-      </LogoWrapper>
-      <InputWrapper>
-        <li>
-          <SearchWrapper type="text" />
-        </li>
-        <li>
-          <ButtonWrapper>
-            <BsBell style={{ fontSize: 25 }} />
-          </ButtonWrapper>
-        </li>
-        <li>
-          <ButtonWrapper onClick={onVaildGoCart}>
-            {isLogin && <BookPop />}
-            <BsCart3 style={{ fontSize: 25 }} />
-          </ButtonWrapper>
-        </li>
-        <li>
-          <ButtonWrapper>
-            <ImBooks style={{ fontSize: 29 }} />
-          </ButtonWrapper>
-        </li>
-        <li>
-          <ButtonWrapper>
-            <AiOutlineUser style={{ fontSize: 29 }} />
-          </ButtonWrapper>
-        </li>
-      </InputWrapper>
-    </MiddleNavStyled>
-  );
-}

@@ -1,4 +1,95 @@
 import styled from "styled-components";
+import { transelateCategory } from "../../utils/makeString";
+import { ImCart } from "react-icons/im";
+import { IoIosArrowForward } from "react-icons/io";
+import { BookInfoProps } from "../types/DataProps";
+import { BaseLayoutProps } from "../types/BaseLayoutProps";
+
+export interface BookInfoDataProps extends BaseLayoutProps {
+  id: BookInfoProps["id"];
+  author: BookInfoProps["author"];
+  category: BookInfoProps["category"];
+  imgUrl: BookInfoProps["imgUrl"];
+  price: BookInfoProps["price"];
+  publisher: BookInfoProps["publisher"];
+  title: BookInfoProps["title"];
+  onCartIn: () => void;
+  isInMyCart: boolean;
+}
+
+export interface buttonStyled {
+  isInMyCart: boolean;
+}
+
+function BookInfo({
+  id,
+  author,
+  category,
+  imgUrl,
+  price,
+  publisher,
+  title,
+  onCartIn,
+  isInMyCart,
+  ...rest
+}: BookInfoDataProps) {
+  return (
+    <BookInfoContentWrap {...rest}>
+      <div className="bookImageAndpreviewWrap">
+        <div className="bookCover">
+          <img src={imgUrl} alt="bookcover" />
+        </div>
+        <button className="previewButton">미리보기</button>
+      </div>
+      <div className="bookDescriptionWrap">
+        <ul className="booksCategory">
+          <li>소설</li>
+          <li className="centerLi">
+            <IoIosArrowForward />
+          </li>
+          <li>{transelateCategory(category)}</li>
+        </ul>
+        <h1 className="bookTitle">{title}</h1>
+        <div className="authorAndPublisherWrap">
+          <div className="authorWrap">
+            <span>{author}</span>
+            <span>저</span>
+          </div>
+          <div className="publisherWrap">
+            <span>{publisher}</span>
+            <span>출판</span>
+          </div>
+        </div>
+        <div className="priceTableWrap">
+          <table className="priceTable">
+            <tbody>
+              <tr>
+                <td>구매</td>
+                <td className="secondTd">판매가</td>
+                <td className="thirdTd">
+                  {price.toLocaleString("ko-KR") + "원"}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div className="buttonsWrap">
+          <CartButton
+            onClick={() => {
+              onCartIn();
+            }}
+            isInMyCart={isInMyCart}
+          >
+            <ImCart />
+          </CartButton>
+          <button className="purchaseButton">소장하기</button>
+        </div>
+      </div>
+    </BookInfoContentWrap>
+  );
+}
+
+export default BookInfo;
 
 const BookInfoContentWrap = styled.div`
   display: flex;
@@ -109,11 +200,6 @@ const BookInfoContentWrap = styled.div`
     margin-top: 1rem;
   }
 
-  .giftButton {
-    margin-right: 0.4em;
-    padding: 0 15px;
-  }
-
   .purchaseButton {
     border: 1px solid hsla(166, 56%, 39%, 0.856);
     border-radius: 0.3em;
@@ -135,8 +221,6 @@ const CartButton = styled.button`
   border-radius: 0.2rem;
   padding: 2px 16px 0 14px;
   background-color: transparent;
-  color: ${(props) => (props.color ? "red" : "gray")};
+  color: ${({ isInMyCart }: buttonStyled) => (isInMyCart ? "#FA8576" : "gray")};
   font-size: 1.1rem;
 `;
-
-export { CartButton, BookInfoContentWrap };
