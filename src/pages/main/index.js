@@ -57,7 +57,6 @@ function Main({ categoryName, setCategoryName, bookData }) {
 
   const onClickCategory = (category) => {
     navigator(`/books?category=${category}`);
-    setCategoryName(category);
   };
 
   const onClickBook = (id) => {
