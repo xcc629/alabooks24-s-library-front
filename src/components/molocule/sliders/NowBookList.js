@@ -9,9 +9,47 @@ export default function NowBookList({ bookData, onClickBook }) {
     className: "center",
     centerMode: true,
     infinite: true,
+    autoplay: true,
+    autoplaySpeed: 2500,
+    cssEase: "linear",
+    speed: 400,
     slidesToShow: 5,
-    scrollToShow: 1,
-    speed: 500,
+    slidesToScroll: 2.5,
+    initialSlide: 0,
+
+    responsive: [
+      {
+        breakpoint: 1100,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 910,
+        settings: {
+          slidesToShow: 3.3,
+          slidesToScroll: 1,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 740,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 560,
+        settings: {
+          slidesToShow: 1.6,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
   return (
     <Wrapper>
@@ -55,6 +93,7 @@ const Wrapper = styled.section`
   margin: 10px auto;
   padding: 10px 40px;
   max-width: 1150px;
+
   height: max-content;
   object-fit: hidden;
 `;
@@ -124,7 +163,7 @@ const InfoWrapper = styled.div`
 const InfoTitle = styled.h2`
   text-align: left;
   margin: 20px auto 10px 0;
-  width: max-content;
+  width: 100%;
   font-size: 16px;
   font-weight: 400;
 `;
