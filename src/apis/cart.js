@@ -15,57 +15,79 @@ export const getCart = async () => {
         }`,
       },
     });
-    const data = await res.json();
-    if (data.message) throw Error("No Login");
-    return data;
+    const result = await res.json();
+
+    if (result.message) throw Error(result.message);
+
+    return result;
   } catch (err) {
     console.log(err);
   }
 };
 
 export const postCartIn = async (bookId) => {
-  return await fetch(`${BASE_URL}/members/cart/${bookId}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${
-        getLoginCookie("token")
-          ? getLoginCookie("token")
-          : sessionStorage.getItem("token")
-      }`,
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => data);
+  try {
+    const res = await fetch(`${BASE_URL}/members/cart/${bookId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${
+          getLoginCookie("token")
+            ? getLoginCookie("token")
+            : sessionStorage.getItem("token")
+        }`,
+      },
+    });
+
+    const result = await res.json();
+
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const deleteCartOut = async (bookId) => {
-  return await fetch(`${BASE_URL}/members/cart/${bookId}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${
-        getLoginCookie("token")
-          ? getLoginCookie("token")
-          : sessionStorage.getItem("token")
-      }`,
-    },
-  });
+  try {
+    const res = await fetch(`${BASE_URL}/members/cart/${bookId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${
+          getLoginCookie("token")
+            ? getLoginCookie("token")
+            : sessionStorage.getItem("token")
+        }`,
+      },
+    });
+
+    const result = await res.json();
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const cartTotalCount = async () => {
-  return await fetch(`${BASE_URL}/members/cart/totalCount`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${
-        getLoginCookie("token")
-          ? getLoginCookie("token")
-          : sessionStorage.getItem("token")
-      }`,
-    },
-  });
+  try {
+    const res = await fetch(`${BASE_URL}/members/cart/totalCount`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${
+          getLoginCookie("token")
+            ? getLoginCookie("token")
+            : sessionStorage.getItem("token")
+        }`,
+      },
+    });
+    const result = await res.json();
+
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const checkIsInMyCart = async (bookId) => {
@@ -82,9 +104,6 @@ export const checkIsInMyCart = async (bookId) => {
     });
     const result = await res.json();
 
-    if (!res.ok) {
-      return { exist: false };
-    }
     return result;
   } catch (err) {
     console.log(err);
