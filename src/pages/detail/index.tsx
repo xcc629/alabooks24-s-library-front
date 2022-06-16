@@ -9,6 +9,7 @@ import {
   BookInfoProps,
 } from "../../components/types/DataProps";
 import { checkIsInMyCart } from "../../apis/cart";
+import { getLoginCookie } from "../../utils/cookie";
 
 export default function Detail() {
   const params = useParams();
@@ -27,15 +28,17 @@ export default function Detail() {
   };
 
   const checkCart = async () => {
-    const result = await checkIsInMyCart(bookId);
-    setIsInMyCart(result.exist);
-
+    if (Boolean(getLoginCookie("token") || sessionStorage.getItem("token"))) {
+      const result = await checkIsInMyCart(bookId);
+      setIsInMyCart(result.exist);
+    }
     return true;
   };
 
   const getBookInfodata = async () => {
     const data = await getBookInfo(bookId);
     setbookInfoObj(data);
+
     return true;
   };
 

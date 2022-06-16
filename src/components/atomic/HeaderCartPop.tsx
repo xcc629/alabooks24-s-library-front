@@ -1,19 +1,25 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { cartTotalCount } from "../../apis/cart";
 
 export default function BookPop() {
+  const { pathname } = useLocation();
   const [dataOk, setDataOk] = useState<boolean>(false);
   const [bookCount, setBookCount] = useState<number>(0);
 
+  const getTotalCount = async () => {
+    setDataOk(false);
+
+    const data = await cartTotalCount();
+
+    setBookCount(data.totalBooksCountInCart);
+    setDataOk(true);
+  };
+
   useEffect(() => {
-    cartTotalCount()
-      .then((res) => res.json())
-      .then((result) => {
-        setBookCount(result.totalBooksCountInCart);
-        setDataOk(true);
-      });
-  }, []);
+    getTotalCount();
+  }, [pathname]);
 
   return dataOk && <Pop>{bookCount}</Pop>;
 }

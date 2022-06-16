@@ -14,7 +14,7 @@ export default function NowBookList({ bookData, onClickBook }) {
     cssEase: "linear",
     speed: 400,
     slidesToShow: 5,
-    slidesToScroll: 2.5,
+    slidesToScroll: 1,
     initialSlide: 0,
 
     responsive: [
