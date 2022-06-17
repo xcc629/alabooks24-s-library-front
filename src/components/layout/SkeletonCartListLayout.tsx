@@ -11,7 +11,7 @@ const SkeletonBoxWrapper = styled(SkeletonBox)`
 export default function SkeletonCartListLayout() {
   return (
     <BoxWrapper>
-      <SkeletonBoxWrapper width={618} height={224} />
+      <SkeletonBoxWrapper width={618} height={1000} />
       <SkeletonBox width={300} height={250.5} />
     </BoxWrapper>
   );

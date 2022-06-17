@@ -29,9 +29,6 @@ export default function MainDelay() {
     const renderCategory = async () => {
       try {
         const data = await getBookCategory(categoryName);
-
-        if (data.message) throw new Error(data.message);
-
         setBookData(data);
         setIsLoading(false);
       } catch (err) {

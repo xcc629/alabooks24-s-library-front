@@ -13,7 +13,50 @@ export interface CartListCardProps extends BaseLayoutProps {
   checked: boolean;
   index: number;
   onChecked: CartListProps["onChecked"];
-  onEachCartOut: CartListProps["onEachCartOut"];
+  clickDeleteBtn: CartListProps["clickDeleteBtn"];
+}
+
+export default function CartListCard({
+  title,
+  author,
+  price,
+  checked,
+  index,
+  onChecked,
+  clickDeleteBtn,
+  ...rest
+}: CartListCardProps) {
+  return (
+    <CartListCardStyled {...rest}>
+      <CheckLable
+        onClick={() => {
+          onChecked(index);
+        }}
+      >
+        {checked ? <AiFillCheckSquare /> : <AiOutlineCheckSquare />}
+      </CheckLable>
+      <ImageWrapper></ImageWrapper>
+      <div className="wrapper">
+        <ContentWrapeer>
+          <TextWrapper>
+            <h3>{title}</h3>
+            <p>{author}</p>
+          </TextWrapper>
+          <PriceWrapper>{price.toLocaleString("ko-KR")}원</PriceWrapper>
+        </ContentWrapeer>
+        <ButtonWrpaeer>
+          <TextButton content="위시리스트로 이동" themeColor={"white"} />
+          <Button
+            onClick={() => {
+              clickDeleteBtn(index);
+            }}
+          >
+            삭제
+          </Button>
+        </ButtonWrpaeer>
+      </div>
+    </CartListCardStyled>
+  );
 }
 
 const CartListCardStyled = styled.div`
@@ -69,45 +112,3 @@ const Button = styled.button`
     background-color: #f0f0f0;
   }
 `;
-
-export default function CartListCard({
-  title,
-  author,
-  price,
-  checked,
-  index,
-  onChecked,
-  onEachCartOut,
-}: CartListCardProps) {
-  return (
-    <CartListCardStyled>
-      <CheckLable
-        onClick={() => {
-          onChecked(index);
-        }}
-      >
-        {checked ? <AiFillCheckSquare /> : <AiOutlineCheckSquare />}
-      </CheckLable>
-      <ImageWrapper></ImageWrapper>
-      <div className="wrapper">
-        <ContentWrapeer>
-          <TextWrapper>
-            <h3>{title}</h3>
-            <p>{author}</p>
-          </TextWrapper>
-          <PriceWrapper>{price.toLocaleString("ko-KR")}원</PriceWrapper>
-        </ContentWrapeer>
-        <ButtonWrpaeer>
-          <TextButton content="위시리스트로 이동" themeColor={"white"} />
-          <Button
-            onClick={() => {
-              onEachCartOut(index);
-            }}
-          >
-            삭제
-          </Button>
-        </ButtonWrpaeer>
-      </div>
-    </CartListCardStyled>
-  );
-}

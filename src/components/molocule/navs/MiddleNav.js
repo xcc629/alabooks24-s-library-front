@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
 import { getLoginCookie } from "../../../utils/cookie";
-
 import BookPop from "../../atomic/HeaderCartPop";
-
 import { BsCart3 } from "react-icons/bs";
+import UseStores from "../../../stores/useStore";
 
 export default function MiddleNav() {
+  const { modalStore } = UseStores();
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(
     Boolean(getLoginCookie("token")) || Boolean(sessionStorage.getItem("token"))
@@ -25,7 +24,14 @@ export default function MiddleNav() {
   ]);
 
   const onVaildGoCart = () => {
-    isLogin ? navigatePath("/cart") : alert("로그인이 필요합니다");
+    isLogin
+      ? navigatePath("/cart")
+      : modalStore.openModal(
+          "로그인이 필요합니다.",
+          "diend",
+          "로그인 하기",
+          "account/login"
+        );
   };
 
   const navigatePath = (path) => {

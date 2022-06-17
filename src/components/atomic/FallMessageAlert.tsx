@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import {
   AiFillCheckCircle,
@@ -7,7 +7,7 @@ import {
   AiOutlineClose,
 } from "react-icons/ai";
 import { BaseLayoutProps } from "../types/BaseLayoutProps";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { observer } from "mobx-react";
 import useStores from "../../stores/useStore";
 
@@ -34,7 +34,7 @@ function FallMessageAlert() {
     navigatemodalMessage,
   } = modalStore;
 
-  const [open, setOpen] = useState(isOpen);
+  const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,8 +45,12 @@ function FallMessageAlert() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
+  useEffect(() => {
+    modalStore.closeModal();
+  }, [location]);
+
   return isOpen ? (
-    <FallMessageAlertStyled open={open}>
+    <FallMessageAlertStyled>
       <FallMessageAlertWrapper color={color}>
         {modalIcon === "ok" ? (
           <AiFillCheckCircle />
@@ -57,7 +61,6 @@ function FallMessageAlert() {
         {navigateModalAddress && navigatemodalMessage && (
           <NavigateButtonWrapper
             onClick={() => {
-              modalStore.closeModal();
               navigate(navigateModalAddress);
             }}
           >
@@ -105,13 +108,13 @@ const FallDownAnimation = keyframes`
 }
 `;
 
-const FallMessageAlertStyled = styled.div<StyledProps>`
+const FallMessageAlertStyled = styled.div`
   position: fixed;
   top: 8vh;
   left: 50%;
   transform: translate(-50%, 8vh);
 
-  display: ${({ open }) => (open ? "none" : "flex")};
+  display: flex;
   justify-content: space-between;
   align-items: center;
   border-radius: 0.3rem;
@@ -125,6 +128,7 @@ const FallMessageAlertStyled = styled.div<StyledProps>`
   -moz-animation: ${FallDownAnimation} 3s ease;
   -webkit-animation: ${FallDownAnimation} 3s ease;
   animation: ${FallDownAnimation} 3s ease;
+  z-index: 100;
 `;
 
 const FallMessageAlertWrapper = styled.div<

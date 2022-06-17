@@ -10,7 +10,7 @@ export interface SkeletonBoxProps extends BaseLayoutProps {
 
 const SkeletonBoxAnimation = keyframes`
   0%{
-    background-color: #FAFAFA;
+    background-color: #e4e4e4;
   }
 `;
 
