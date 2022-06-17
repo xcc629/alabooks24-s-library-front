@@ -12,7 +12,7 @@ export interface CartListProps extends BaseLayoutProps {
   totalChecked: boolean;
   onChecked: (index: number) => void;
   checked: boolean[];
-  onEachCartOut: (index: number) => void;
+  clickDeleteBtn: (index: number) => void;
 }
 
 export default function CartListLayout({
@@ -21,10 +21,11 @@ export default function CartListLayout({
   totalChecked,
   onChecked,
   checked,
-  onEachCartOut,
+  clickDeleteBtn,
+  ...rest
 }: CartListProps) {
   return (
-    <CartListStyled>
+    <CartListStyled {...rest}>
       <SelectorWrapper>
         <label onClick={onTotalChecked}>
           {totalChecked ? <AiFillCheckSquare /> : <AiOutlineCheckSquare />}
@@ -45,7 +46,7 @@ export default function CartListLayout({
             price={data.price}
             checked={checked[index]}
             onChecked={onChecked}
-            onEachCartOut={onEachCartOut}
+            clickDeleteBtn={clickDeleteBtn}
           />
         ))
       ) : (

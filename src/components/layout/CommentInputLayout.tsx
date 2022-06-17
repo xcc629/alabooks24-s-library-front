@@ -6,6 +6,7 @@ import { BaseLayoutProps } from "../types/BaseLayoutProps";
 import CommentStarInput from "../molocule/CommentInputStar";
 import { checkLogin } from "../../utils/account";
 import CommentInputTitle from "../molocule/CommentInputTitle";
+import useStores from "../../stores/useStore";
 
 export interface CommentInputProps extends BaseLayoutProps {
   bookId: number;
@@ -21,6 +22,7 @@ export default function CommentInput({
   setNeedGetPostList,
   ...rest
 }: CommentInputProps) {
+  const { modalStore } = useStores();
   const [isLogin, setIsLogin] = useState<boolean>(Boolean(checkLogin()));
   const [isStarClicked, setisStarClicked] = useState<boolean>(false);
   const [starNumberForSign, setStarNumberForSign] = useState<number>(0);
@@ -33,7 +35,12 @@ export default function CommentInput({
 
   const blockInput = () => {
     if (!isLogin) {
-      alert("로그인 후 이용해주세요");
+      modalStore.openModal(
+        "로그인 후 댓글을 달 수 있습니다.",
+        "diend",
+        "로그인 하기",
+        "account/login"
+      );
     }
   };
 
@@ -47,12 +54,13 @@ export default function CommentInput({
       content: commentValue,
     };
     let res = await postComment(bookId, comment);
-    let message = await res.json();
-    if (!res.ok) throw message;
-    if (res.ok) {
-      setcommentValue("");
-      setNeedGetPostList(true);
+
+    if (res.message) {
+      modalStore.openModal(res.message, "diend");
     }
+    if (!res.message) setcommentValue("");
+
+    setNeedGetPostList(true);
   };
 
   return (
@@ -80,7 +88,13 @@ export default function CommentInput({
       />
       <PostButtonWrapper
         disable={commentValue.length >= 5 ? false : true}
-        onClick={clickPostComment}
+        onClick={() => {
+          if (commentValue.length >= 5) {
+            clickPostComment();
+          } else {
+            modalStore.openModal("리뷰는 5자 이상 입력해주세요", "diend");
+          }
+        }}
       >
         <TextButton
           themeColor={"Green"}

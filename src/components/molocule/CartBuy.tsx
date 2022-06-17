@@ -10,6 +10,60 @@ export interface CartBuyProps extends BaseLayoutProps {
   checked: boolean[];
 }
 
+export default function CartBuy({ cartData, checked, ...rest }: CartBuyProps) {
+  const [totalBooks, setTotalBooks] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  const sumTotal = () => {
+    setTotalBooks(() => {
+      let count = 0;
+      checked.forEach((element) => {
+        element && count++;
+      });
+      return count;
+    });
+
+    setTotalPrice(() => {
+      let sum = 0;
+      checked.forEach((el, idx) => {
+        if (el) {
+          sum += cartData.cartItems[idx].price;
+        }
+      });
+      return sum;
+    });
+  };
+
+  useEffect(() => {
+    sumTotal();
+  }, [checked]);
+
+  return (
+    <CartBuyStyled {...rest}>
+      <CartBuyWrapper>
+        <TotalBooksWrapper>
+          <AiFillCheckCircle />
+          {totalBooks}권을 선택하셨습니다.
+        </TotalBooksWrapper>
+        <ContentWrapper>
+          <p>총 상품 금액</p>
+          <p>{totalPrice.toLocaleString("ko-KR")}원</p>
+        </ContentWrapper>
+        <ContentWrapper>
+          <p>할인 금액</p>
+          <p>{0}원</p>
+        </ContentWrapper>
+        <ResultWrapper>
+          <p>합계</p>
+          <p>{totalPrice.toLocaleString("ko-KR")}원</p>
+        </ResultWrapper>
+      </CartBuyWrapper>
+
+      <TextButtonWrapper content="선택 구매하기" themeColor={"Green"} />
+    </CartBuyStyled>
+  );
+}
+
 const CartBuyStyled = styled.div`
   position: fixed;
   max-width: 1024px;
@@ -70,55 +124,3 @@ const ResultWrapper = styled.div`
 const TextButtonWrapper = styled(TextButton)`
   width: 100%;
 `;
-
-export default function CartBuy({ cartData, checked, ...rest }: CartBuyProps) {
-  const [totalBooks, setTotalBooks] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
-
-  useEffect(() => {
-    sumTotal();
-  }, [checked]);
-
-  const sumTotal = () => {
-    setTotalBooks(() => {
-      let count = 0;
-      checked.forEach((element) => {
-        element && count++;
-      });
-      return count;
-    });
-    setTotalPrice(() => {
-      let sum = 0;
-      checked.forEach((el, idx) => {
-        if (el) {
-          sum += cartData.cartItems[idx].price;
-        }
-      });
-      return sum;
-    });
-  };
-  return (
-    <CartBuyStyled {...rest}>
-      <CartBuyWrapper>
-        <TotalBooksWrapper>
-          <AiFillCheckCircle />
-          {totalBooks}권을 선택하셨습니다.
-        </TotalBooksWrapper>
-        <ContentWrapper>
-          <p>총 상품 금액</p>
-          <p>{totalPrice.toLocaleString("ko-KR")}원</p>
-        </ContentWrapper>
-        <ContentWrapper>
-          <p>할인 금액</p>
-          <p>{0}원</p>
-        </ContentWrapper>
-        <ResultWrapper>
-          <p>합계</p>
-          <p>{totalPrice.toLocaleString("ko-KR")}원</p>
-        </ResultWrapper>
-      </CartBuyWrapper>
-
-      <TextButtonWrapper content="선택 구매하기" themeColor={"Green"} />
-    </CartBuyStyled>
-  );
-}

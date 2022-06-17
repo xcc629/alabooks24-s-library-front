@@ -30,8 +30,6 @@ export default function DetailLayout({
     try {
       const data = await postCartIn(bookId);
 
-      if (!data.message) throw new Error("NO MESSAGE");
-
       if (data.message === "카트에 담았습니다.") {
         modalStore.openModal(data.message, "pass", "카트보기", "/cart");
         setIsInMyCart(true);
