@@ -35,7 +35,12 @@ export default function CommentInput({
 
   const blockInput = () => {
     if (!isLogin) {
-      alert("로그인 후 이용해주세요");
+      modalStore.openModal(
+        "로그인 후 댓글을 달 수 있습니다.",
+        "diend",
+        "로그인 하기",
+        "account/login"
+      );
     }
   };
 

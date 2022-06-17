@@ -42,6 +42,8 @@ export const postCartIn = async (bookId) => {
 
     const result = await res.json();
 
+    if (!result.message) throw new Error("NO MESSAGE");
+
     return result;
   } catch (err) {
     console.log(err);
