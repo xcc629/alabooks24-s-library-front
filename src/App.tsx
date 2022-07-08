@@ -8,16 +8,16 @@ import {
 } from "react-router-dom";
 import { Provider } from "mobx-react";
 
-import TopNav from "./components/molocule/navs/TopNav";
-import MiddleNav from "./components/molocule/navs/MiddleNav";
+import TopNav from "./components/molocules/navs/TopNav";
+import MiddleNav from "./components/molocules/navs/MiddleNav";
 import Main from "./pages/main";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import Detail from "./pages/detail";
 import Cartpage from "./pages/cart";
-import SignNav from "./components/molocule/navs/SignNav";
+import SignNav from "./components/molocules/navs/SignNav";
 import Test from "./pages/test";
-import FallMessageAlert from "./components/atomic/FallMessageAlert";
+import Modal from "./components/organisms/Modal";
 import ModalStore from "./stores/modalStore";
 
 const modalStore = new ModalStore();
@@ -39,7 +39,7 @@ function Router() {
 
           <Route path="*" element={<Navigate to="/not-found" />} />
         </Routes>
-        <FallMessageAlert />
+        <Modal />
       </Provider>
     </BrowserRouter>
   );

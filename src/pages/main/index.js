@@ -3,10 +3,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { getBookCategory } from "../../apis/books";
 
-import CategoryNav from "../../components/molocule/navs/CategoryNav";
-import BannerSlide from "../../components/molocule/sliders/BannerSlide";
-import NowBookList from "../../components/molocule/sliders/NowBookList";
-import Loading from "../../components/molocule/Loading";
+import CategoryNav from "../../components/molocules/navs/CategoryNav";
+import BannerSlide from "../../components/molocules/sliders/BannerSlide";
+import NowBookList from "../../components/molocules/sliders/NowBookList";
+import Loading from "../../components/atoms/Loading";
 
 export default function MainDelay() {
   const { search } = useLocation();

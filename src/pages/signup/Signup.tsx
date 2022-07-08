@@ -7,9 +7,9 @@ import {
   duplicateCheckEmail,
 } from "../../apis/user";
 import { SignupWrapper } from "./Signupstyled";
-import TextButton from "../../components/atomic/TextButton";
+import TextButton from "../../components/atoms/TextButton";
 
-import SignupForm from "../../components/atomic/SignupForm";
+import SignupForm from "../../components/atoms/SignupForm";
 import { ImWarning } from "react-icons/im";
 
 function Signup() {

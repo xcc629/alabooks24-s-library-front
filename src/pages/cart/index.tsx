@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import CartListLayout from "../../components/layout/CartListLayout";
-import CartBuy from "../../components/molocule/CartBuy";
+import CartListLayout from "../../components/templates/CartListLayout";
+import CartBuy from "../../components/molocules/CartBuy";
 import { deleteCartOut, getCart } from "../../apis/cart";
 import { CartDataProps } from "../../components/types/DataProps";
-import SkeletonCartListLayout from "../../components/layout/SkeletonCartListLayout";
+import SkeletonCartListLayout from "../../components/templates/SkeletonCartListLayout";
 import UseStores from "../../stores/useStore";
 
 export default function Cartpage() {

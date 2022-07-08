@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getLoginCookie } from "../../../utils/cookie";
-import BookPop from "../../atomic/HeaderCartPop";
+import BookPop from "../../atoms/Badge";
 import { BsCart3 } from "react-icons/bs";
 import UseStores from "../../../stores/useStore";
 

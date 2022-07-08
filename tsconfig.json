@@ -18,7 +18,7 @@
   },
   "include": [
     "src",
-    "src/components/molocule/.js",
-    "src/components/molocule/.js"
+    "src/components/molocules/.js",
+    "src/components/molocules/.js"
   ]
 }

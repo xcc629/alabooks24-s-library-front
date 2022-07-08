@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-import TextButton from "../atomic/TextButton";
+import TextButton from "./TextButton";
 import { BaseLayoutProps } from "../types/BaseLayoutProps";
 import { CartItemsProps } from "../types/DataProps";
-import { CartListProps } from "../layout/CartListLayout";
+import { CartListProps } from "../templates/CartListLayout";
 import { AiOutlineCheckSquare, AiFillCheckSquare } from "react-icons/ai";
 
 export interface CartListCardProps extends BaseLayoutProps {

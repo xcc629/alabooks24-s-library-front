@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { postCartIn, deleteCartOut } from "../../apis/cart";
-import BookInfo from "../molocule/BookMainInfo";
-import BookDetailInfo from "../molocule/BookDetailInfo";
-import BestSeller from "../molocule/BestSeller";
-import CommentLayout from "../../components/layout/CommentLayout";
+import BookInfo from "../molocules/BookMainInfo";
+import BookDetailInfo from "../molocules/BookDetailInfo";
+import BestSeller from "../molocules/BestSeller";
+import CommentLayout from "./CommentLayout";
 
 import { BaseLayoutProps } from "../types/BaseLayoutProps";
 import { BestSellerItemProps, BookInfoProps } from "../types/DataProps";

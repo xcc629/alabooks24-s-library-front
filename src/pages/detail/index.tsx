@@ -2,8 +2,8 @@ import { useState, useLayoutEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getBookInfo, getBestSeller } from "../../apis/books";
 
-import Loading from "../../components/molocule/Loading";
-import DetailLayout from "../../components/layout/DetailLayout";
+import Loading from "../../components/atoms/Loading";
+import DetailLayout from "../../components/templates/DetailLayout";
 import {
   BestSellerItemProps,
   BookInfoProps,
