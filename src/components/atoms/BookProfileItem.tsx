@@ -14,6 +14,73 @@ export interface BookProfileProps extends BaseLayoutProps {
   price: number;
 }
 
+const Styled = styled.div`
+  display: flex;
+  border-bottom: 1px solid gray;
+  margin: 0 15px;
+  padding: 20px 0;
+`;
+
+const BookImgWrapper = styled.div`
+  width: 80px;
+  height: 112px;
+`;
+
+const BookImg = styled.img`
+  width: 100%;
+`;
+
+const BookInfoWrapper = styled.div`
+  padding-left: 15px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5em;
+`;
+
+const TitleWrapper = styled.div``;
+
+const AuthorWrapper = styled.div`
+  overflow-wrap: break-word;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  color: rgb(99, 108, 115);
+`;
+
+const StarWrapper = styled.div`
+  display: flex;
+  font-weight: bold;
+  color: rgb(250, 114, 46);
+  font-size: 13px;
+`;
+
+const CommentWrapper = styled.div`
+  color: rgb(153, 153, 153);
+  padding-top: 1px;
+  margin: 0px 2px;
+  font-weight: 400;
+  font-size: 12px;
+`;
+
+const PublisherAndCategoryWrapper = styled.div`
+  font-size: 12px;
+  overflow-wrap: break-word;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  color: rgb(153, 153, 153);
+`;
+
+const Price = styled.div`
+  padding: 1px 0px 5px;
+  text-align: left;
+  color: rgb(102, 102, 102);
+  font-weight: normal;
+  font-size: 13px;
+  span {
+    color: hsl(166, 41%, 51%);
+    font-weight: bold;
+  }
+`;
+
 export default function BookProfile({
   id,
   bookImgUrl,
@@ -29,36 +96,21 @@ export default function BookProfile({
   return (
     <Styled {...rest}>
       <BookImgWrapper>
-        <img src={bookImgUrl} alt={`${id}`} />
+        <BookImg src={bookImgUrl} alt={`${id}`} />
       </BookImgWrapper>
       <BookInfoWrapper>
         <TitleWrapper>{title}</TitleWrapper>
         <AuthorWrapper>{author}</AuthorWrapper>
         <StarWrapper>
-          {star}
-          <CommentWrapper>{totalComment}</CommentWrapper>
+          {star}점<CommentWrapper>({totalComment})</CommentWrapper>
         </StarWrapper>
-        <PublisherAndCategoryWrapper></PublisherAndCategoryWrapper>
-        <Price>소장 {price}원</Price>
+        <PublisherAndCategoryWrapper>
+          {publisher} | {category}
+        </PublisherAndCategoryWrapper>
+        <Price>
+          소장 <span>{price}원</span>
+        </Price>
       </BookInfoWrapper>
     </Styled>
   );
 }
-
-const Styled = styled.div``;
-
-const BookImgWrapper = styled.div``;
-
-const BookInfoWrapper = styled.div``;
-
-const TitleWrapper = styled.div``;
-
-const AuthorWrapper = styled.div``;
-
-const StarWrapper = styled.div``;
-
-const CommentWrapper = styled.div``;
-
-const PublisherAndCategoryWrapper = styled.div``;
-
-const Price = styled.div``;
