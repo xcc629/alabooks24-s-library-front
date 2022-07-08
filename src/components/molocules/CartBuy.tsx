@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { AiFillCheckCircle } from "react-icons/ai";
-import TextButton from "../atomic/TextButton";
+import TextButton from "../atoms/TextButton";
 import { BaseLayoutProps } from "../types/BaseLayoutProps";
 import { CartDataProps } from "../types/DataProps";
 

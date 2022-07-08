@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import SkeletonBox from "../atomic/SkeletonBox";
+import SkeletonBox from "../atoms/SkeletonBox";
 import { BoxWrapper } from "../../pages/cart/index";
 import styled from "styled-components";
 

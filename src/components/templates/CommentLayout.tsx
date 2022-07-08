@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import CommentList from "../molocule/CommentList";
+import CommentList from "../molocules/CommentList";
 import CommentInputLayout from "./CommentInputLayout";
 import { BaseLayoutProps } from "../types/BaseLayoutProps";
 import { useEffect, useState } from "react";

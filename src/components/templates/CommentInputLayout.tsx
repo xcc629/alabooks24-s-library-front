@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { postComment } from "../../apis/comment";
-import TextButton from "../atomic/TextButton";
+import TextButton from "../atoms/TextButton";
 import { BaseLayoutProps } from "../types/BaseLayoutProps";
-import CommentStarInput from "../molocule/CommentInputStar";
+import CommentStarInput from "../molocules/CommentInputStar";
 import { checkLogin } from "../../utils/account";
-import CommentInputTitle from "../molocule/CommentInputTitle";
+import CommentInputTitle from "../molocules/CommentInputTitle";
 import useStores from "../../stores/useStore";
 
 export interface CommentInputProps extends BaseLayoutProps {

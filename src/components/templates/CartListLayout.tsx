@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
-import CartListCard from "../molocule/CartListCard";
-import TextButton from "../atomic/TextButton";
+import CartListCard from "../atoms/CartListItem";
+import TextButton from "../atoms/TextButton";
 import { AiOutlineCheckSquare, AiFillCheckSquare } from "react-icons/ai";
 import { BaseLayoutProps } from "../types/BaseLayoutProps";
 import { CartDataProps } from "../types/DataProps";
