@@ -16,9 +16,9 @@ import Signup from "./pages/signup/Signup";
 import Detail from "./pages/detail";
 import Cartpage from "./pages/cart";
 import SignNav from "./components/molocules/navs/SignNav";
-import Test from "./pages/test";
 import Modal from "./components/organisms/Modal";
 import ModalStore from "./stores/modalStore";
+import Search from "./pages/search";
 
 const modalStore = new ModalStore();
 
@@ -33,9 +33,8 @@ function Router() {
             <Route path="/books" element={<Main />} />
             <Route path="/books/:id" element={<Detail />} />
             <Route path="/cart" element={<Cartpage />} />
+            <Route path="/search" element={<Search />} />
           </Route>
-
-          <Route path="/test" element={<Test />} />
 
           <Route path="*" element={<Navigate to="/not-found" />} />
         </Routes>
