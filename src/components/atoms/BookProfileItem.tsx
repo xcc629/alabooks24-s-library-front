@@ -108,7 +108,7 @@ export default function BookProfile({
           {publisher} | {category}
         </PublisherAndCategoryWrapper>
         <Price>
-          소장 <span>{price}원</span>
+          소장 <span>{price.toLocaleString("ko-KR")}원</span>
         </Price>
       </BookInfoWrapper>
     </Styled>
