@@ -1,3 +1,5 @@
+import * as React from "react";
+
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { postComment } from "../../apis/comment";

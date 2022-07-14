@@ -1,3 +1,4 @@
+import * as React from "react";
 import styled, { keyframes } from "styled-components";
 import { theme } from "../../styles/theme";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
