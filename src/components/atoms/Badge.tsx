@@ -1,9 +1,10 @@
+import * as React from "react";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { cartTotalCount } from "../../apis/cart";
 
-export default function BookPop() {
+export default function Badge() {
   const { pathname } = useLocation();
   const [dataOk, setDataOk] = useState<boolean>(false);
   const [bookCount, setBookCount] = useState<number>(0);
@@ -21,7 +22,7 @@ export default function BookPop() {
     getTotalCount();
   }, [pathname]);
 
-  return dataOk && <Pop>{bookCount}</Pop>;
+  return <Pop>{bookCount}</Pop>;
 }
 
 const Pop = styled.div`
